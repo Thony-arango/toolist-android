@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.toolist.app.ui.screens.auth.WelcomeScreen
 
 // ---------------------------------------------------------------------------
 // Rutas selladas
@@ -71,7 +72,11 @@ fun AppNavGraph(
 
         // ── Auth ──────────────────────────────────────────────────────────
         composable(Screen.Welcome.route) {
-            PlaceholderScreen("Welcome")
+            WelcomeScreen(
+                onNavigateToLogin = { navController.navigate(Screen.Login.route) },
+                onNavigateToRegister = { navController.navigate(Screen.Register.route) },
+                onContinueWithoutAccount = { navController.navigate(Screen.MyLists.route) },
+            )
         }
         composable(Screen.Login.route) {
             PlaceholderScreen("Iniciar sesión")
