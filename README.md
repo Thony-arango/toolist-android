@@ -31,7 +31,10 @@ Proyecto académico de la materia **Aplicaciones Móviles** — Universidad Pont
 
 ## 📐 Diseño
 
-El diseño visual completo se encuentra en `docs/design/toolist-mockups.png`.
+El diseño completo está disponible en:
+
+- **Figma (interactivo):** [Ver diseño en Figma](https://figma.com/design/TweXPXUPVFn9XX634vNMPd)
+- **Mockups exportados:** `docs/design/toolist-mockups.png`
 
 ## 🚀 Cómo correr el proyecto
 
@@ -49,7 +52,7 @@ Consultar `CONTEXT.md` para ver el alcance completo, decisiones técnicas y plan
 
 - Anthony Arango Betancur
 - Camilo Marín Muriel
-- (otros integrantes del equipo)
+- Matías Arango Ruiz
 
 ## 📄 Licencia
 
