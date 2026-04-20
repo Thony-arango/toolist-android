@@ -1,3 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AppListaMercado</string>
+
+    <!-- ================================================================== -->
+    <!-- App -->
+    <!-- ================================================================== -->
+    <string name="app_name">ToolList</string>
+    <string name="app_version">Versión 1.0.0</string>
+
+    <!-- ================================================================== -->
+    <!-- Welcome -->
+    <!-- ================================================================== -->
+    <string name="welcome_title">Todo lo que necesitas</string>
+    <string name="welcome_subtitle">Crea listas para el súper, la ferretería, proyectos o cualquier compra.</string>
+    <string name="welcome_btn_continue_without_account">Continuar sin cuenta</string>
+    <string name="welcome_btn_login">Iniciar sesión</string>
+    <string name="welcome_no_account">¿No tienes cuenta?</string>
+    <string name="welcome_link_register">Regístrate</string>
+    <string name="welcome_guest_note">La cuenta es opcional — solo la necesitas para sincronizar entre dispositivos.</string>
+
+    <!-- ================================================================== -->
+    <!-- Registro -->
+    <!-- ================================================================== -->
+    <string name="register_title">Regístrate</string>
+    <string name="register_subtitle">Organiza tus compras desde hoy</string>
+    <string name="register_label_full_name">Nombre completo</string>
+    <string name="register_hint_full_name">Ej. Juan Pérez</string>
+    <string name="register_label_email">Correo electrónico</string>
+    <string name="register_hint_email">tu@correo.com</string>
+    <string name="register_label_password">Contraseña</string>
+    <string name="register_label_confirm_password">Confirmar contraseña</string>
+    <string name="register_btn_create_account">Crear cuenta</string>
+    <string name="register_already_have_account">¿Ya tienes cuenta?</string>
+    <string name="register_link_login">Inicia sesión</string>
+
+    <!-- ================================================================== -->
+    <!-- Login -->
+    <!-- ================================================================== -->
+    <string name="login_title">Iniciar sesión</string>
+    <string name="login_subtitle">Accede para sincronizar tus listas</string>
+    <string name="login_label_email">Correo electrónico</string>
+    <string name="login_hint_email">tu@correo.com</string>
+    <string name="login_label_password">Contraseña</string>
+    <string name="login_link_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_btn_login">Ingresar</string>
+    <string name="login_no_account">¿No tienes cuenta?</string>
+    <string name="login_link_register">Regístrate</string>
+
+    <!-- ================================================================== -->
+    <!-- Recuperar contraseña -->
+    <!-- ================================================================== -->
+    <string name="forgot_password_title">Recuperar contraseña</string>
+    <string name="forgot_password_subtitle">Te enviaremos un enlace para restablecer tu contraseña</string>
+    <string name="forgot_password_label_email">Correo electrónico</string>
+    <string name="forgot_password_hint_email">tu@correo.com</string>
+    <string name="forgot_password_btn_send">Enviar enlace</string>
+    <string name="forgot_password_success">Revisa tu correo para restablecer tu contraseña</string>
+    <string name="forgot_password_back_to_login">Volver a iniciar sesión</string>
+
+    <!-- ================================================================== -->
+    <!-- Errores de validación de formularios -->
+    <!-- ================================================================== -->
+    <string name="error_field_required">Este campo es obligatorio</string>
+    <string name="error_email_invalid">Ingresa un correo electrónico válido</string>
+    <string name="error_password_too_short">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_password_too_weak">La contraseña es muy débil. Usa letras, números y símbolos</string>
+    <string name="error_passwords_do_not_match">Las contraseñas no coinciden</string>
+    <string name="error_name_too_short">El nombre debe tener al menos 2 caracteres</string>
+    <string name="error_auth_wrong_credentials">Correo o contraseña incorrectos</string>
+    <string name="error_auth_email_already_in_use">Este correo ya está registrado</string>
+    <string name="error_auth_user_not_found">No existe una cuenta con ese correo</string>
+    <string name="error_auth_too_many_requests">Demasiados intentos. Intenta más tarde</string>
+    <string name="error_network">Sin conexión. Verifica tu internet</string>
+    <string name="error_generic">Ocurrió un error inesperado. Intenta de nuevo</string>
+    <string name="error_firestore_sync">Error al sincronizar. Los cambios se guardarán cuando haya conexión</string>
+
+    <!-- ================================================================== -->
+    <!-- Mis Listas -->
+    <!-- ================================================================== -->
+    <string name="my_lists_title">Mis listas</string>
+    <string name="my_lists_greeting">Hola, %1$s</string>
+    <string name="my_lists_total_label">TOTAL EN TODAS LAS LISTAS</string>
+    <string name="my_lists_lists_count">%1$d listas · %2$d productos</string>
+    <string name="my_lists_section_active">LISTAS ACTIVAS</string>
+    <string name="my_lists_btn_new_list">+ Nueva lista</string>
+    <string name="my_lists_btn_manage_categories">Gestionar categorías</string>
+    <string name="my_lists_empty_title">Aún no tienes listas</string>
+    <string name="my_lists_empty_subtitle">Crea tu primera lista para empezar a organizar tus compras</string>
+    <string name="my_lists_empty_btn">Crear primera lista</string>
+    <string name="my_lists_products_count">%1$d productos</string>
+    <string name="my_lists_product_count_single">1 producto</string>
+    <string name="my_lists_items_count">%1$d artículos · %2$d pendientes</string>
+
+    <!-- ================================================================== -->
+    <!-- Nueva Lista / Editar Lista -->
+    <!-- ================================================================== -->
+    <string name="new_list_title">Nueva lista</string>
+    <string name="edit_list_title">Editar lista</string>
+    <string name="new_list_label_name">Nombre de la lista</string>
+    <string name="new_list_hint_name">Ej. Mercado Semanal</string>
+    <string name="new_list_label_color">Color identificador</string>
+    <string name="new_list_label_description">Descripción</string>
+    <string name="new_list_hint_description">Agrega una descripción…</string>
+    <string name="new_list_btn_create">Crear lista</string>
+    <string name="new_list_btn_save">Guardar cambios</string>
+    <string name="new_list_btn_cancel">Cancelar</string>
+    <string name="new_list_error_name_required">El nombre de la lista es obligatorio</string>
+    <string name="new_list_error_name_too_long">El nombre no puede superar 50 caracteres</string>
+
+    <!-- ================================================================== -->
+    <!-- Detalle de Lista -->
+    <!-- ================================================================== -->
+    <string name="list_detail_progress">%1$d de %2$d productos comprados</string>
+    <string name="list_detail_total_label">TOTAL ESTIMADO</string>
+    <string name="list_detail_tab_all">Todos</string>
+    <string name="list_detail_section_pending">PENDIENTES (%1$d)</string>
+    <string name="list_detail_section_purchased">COMPRADOS (%1$d)</string>
+    <string name="list_detail_btn_add_product">+ Agregar producto</string>
+    <string name="list_detail_btn_add_first_product">+ Agregar primer producto</string>
+    <string name="list_detail_empty_title">Esta lista está vacía</string>
+    <string name="list_detail_empty_subtitle">Agrega tu primer producto para comenzar</string>
+    <string name="list_detail_completed_title">¡Lista completada! 🎉</string>
+    <string name="list_detail_completed_subtitle">Has comprado todo lo que necesitabas</string>
+    <string name="list_detail_btn_reset">Reiniciar lista</string>
+    <string name="list_detail_more_options">Más opciones</string>
+
+    <!-- ================================================================== -->
+    <!-- Opciones de Lista (bottom sheet) -->
+    <!-- ================================================================== -->
+    <string name="list_options_title">Opciones de la lista</string>
+    <string name="list_options_rename">Renombrar lista</string>
+    <string name="list_options_duplicate">Duplicar lista</string>
+    <string name="list_options_move_to_folder">Mover a una carpeta</string>
+    <string name="list_options_delete">Eliminar lista</string>
+
+    <!-- ================================================================== -->
+    <!-- Agregar / Editar Producto -->
+    <!-- ================================================================== -->
+    <string name="add_product_title">Agregar producto</string>
+    <string name="edit_product_title">Editar producto</string>
+    <string name="add_product_label_name">Nombre del producto</string>
+    <string name="add_product_hint_name">Ej. Leche entera</string>
+    <string name="add_product_label_target_list">Lista de destino</string>
+    <string name="add_product_label_quantity">Cantidad</string>
+    <string name="add_product_label_unit">Unidad</string>
+    <string name="add_product_label_category">Categoría</string>
+    <string name="add_product_label_price">Precio estimado (opcional)</string>
+    <string name="add_product_hint_price">$ 0</string>
+    <string name="add_product_label_initial_state">Estado inicial</string>
+    <string name="add_product_state_pending">Pendiente</string>
+    <string name="add_product_state_purchased">Comprado</string>
+    <string name="add_product_label_notes">Observaciones (opcional)</string>
+    <string name="add_product_hint_notes">Ej. Comprar leche deslactosada</string>
+    <string name="add_product_btn_add">Agregar producto</string>
+    <string name="add_product_btn_save">Guardar cambios</string>
+    <string name="add_product_error_name_required">El nombre del producto es obligatorio</string>
+    <string name="add_product_error_quantity_invalid">Ingresa una cantidad válida</string>
+    <string name="add_product_error_price_invalid">Ingresa un precio válido</string>
+    <string name="add_product_label_image">Imagen del producto (opcional)</string>
+    <string name="add_product_btn_add_image">Agregar imagen</string>
+    <string name="add_product_btn_change_image">Cambiar imagen</string>
+
+    <!-- ================================================================== -->
+    <!-- Detalle de Producto -->
+    <!-- ================================================================== -->
+    <string name="product_detail_title">Detalle del producto</string>
+    <string name="product_detail_section_info">INFORMACIÓN DEL PRODUCTO</string>
+    <string name="product_detail_label_list">LISTA</string>
+    <string name="product_detail_label_quantity">CANTIDAD</string>
+    <string name="product_detail_label_price">PRECIO ESTIMADO</string>
+    <string name="product_detail_label_notes">OBSERVACIONES</string>
+    <string name="product_detail_btn_mark_purchased">Marcar como comprado</string>
+    <string name="product_detail_btn_mark_pending">Marcar como pendiente</string>
+
+    <!-- ================================================================== -->
+    <!-- Opciones de Producto (bottom sheet) -->
+    <!-- ================================================================== -->
+    <string name="product_options_title">Opciones del producto</string>
+    <string name="product_options_mark_purchased">Marcar comprado</string>
+    <string name="product_options_mark_pending">Marcar pendiente</string>
+    <string name="product_options_edit">Editar producto</string>
+    <string name="product_options_duplicate">Duplicar producto</string>
+    <string name="product_options_move_to_list">Mover a otra lista</string>
+    <string name="product_options_delete">Eliminar producto</string>
+
+    <!-- ================================================================== -->
+    <!-- Mover producto a otra lista (bottom sheet) -->
+    <!-- ================================================================== -->
+    <string name="move_product_title">Mover a otra lista</string>
+    <string name="move_product_subtitle">Selecciona la lista de destino</string>
+    <string name="move_product_btn_move">Mover producto</string>
+
+    <!-- ================================================================== -->
+    <!-- Categorías -->
+    <!-- ================================================================== -->
+    <string name="categories_title">Categorías</string>
+    <string name="categories_section_mine">TUS CATEGORÍAS</string>
+    <string name="categories_section_system">CATEGORÍAS DEL SISTEMA</string>
+    <string name="categories_empty_title">Aún no tienes categorías</string>
+    <string name="categories_empty_subtitle">Crea categorías personalizadas para organizar mejor tus productos</string>
+    <string name="categories_btn_new">+ Crear nueva categoría</string>
+    <string name="categories_label_products_count">%1$d productos</string>
+    <string name="categories_label_product_count_single">1 producto</string>
+    <string name="new_category_title">Nueva categoría</string>
+    <string name="new_category_label_name">Nombre de la categoría</string>
+    <string name="new_category_hint_name">Ej. Panadería</string>
+    <string name="new_category_label_icon">Ícono</string>
+    <string name="new_category_btn_create">Crear categoría</string>
+
+    <!-- ================================================================== -->
+    <!-- Búsqueda -->
+    <!-- ================================================================== -->
+    <string name="search_title">Búsqueda</string>
+    <string name="search_hint">Busca en todas tus listas…</string>
+    <string name="search_section_recent">BÚSQUEDAS RECIENTES</string>
+    <string name="search_section_results">RESULTADOS</string>
+    <string name="search_no_results_title">Sin resultados</string>
+    <string name="search_no_results_subtitle">No encontramos productos con ese nombre</string>
+    <string name="search_empty_hint">Empieza a escribir para buscar productos en tus listas</string>
+
+    <!-- ================================================================== -->
+    <!-- Configuración -->
+    <!-- ================================================================== -->
+    <string name="settings_title">Configuración</string>
+    <string name="settings_section_account">CUENTA</string>
+    <string name="settings_btn_logout">Cerrar sesión</string>
+    <string name="settings_section_data">DATOS</string>
+    <string name="settings_label_sync">Sincronización</string>
+    <string name="settings_sync_active">Activa</string>
+    <string name="settings_sync_inactive">Inactiva</string>
+    <string name="settings_sync_syncing">Sincronizando…</string>
+
+    <!-- ================================================================== -->
+    <!-- Créditos -->
+    <!-- ================================================================== -->
+    <string name="credits_title">Créditos</string>
+    <string name="credits_app_description">Aplicación Móviles</string>
+    <string name="credits_label_subject">Materia</string>
+    <string name="credits_label_institution">Institución</string>
+    <string name="credits_institution_name">UPB</string>
+    <string name="credits_label_year">Año</string>
+    <string name="credits_year">2026</string>
+    <string name="credits_section_team">EQUIPO DE DESARROLLO</string>
+
+    <!-- ================================================================== -->
+    <!-- Diálogos de confirmación -->
+    <!-- ================================================================== -->
+    <!-- Eliminar lista -->
+    <string name="dialog_delete_list_title">¿Eliminar lista?</string>
+    <string name="dialog_delete_list_message">Se eliminará la lista "%1$s" con todos sus productos. Esta acción no se puede deshacer.</string>
+    <string name="dialog_delete_list_message_with_count">Se eliminará la lista "%1$s" junto con %2$d productos. Esta acción no se puede deshacer.</string>
+
+    <!-- Eliminar producto -->
+    <string name="dialog_delete_product_title">¿Eliminar producto?</string>
+    <string name="dialog_delete_product_message">"%1$s" se eliminará de la lista. Esta acción no se puede deshacer.</string>
+
+    <!-- Eliminar categoría -->
+    <string name="dialog_delete_category_title">¿Eliminar categoría?</string>
+    <string name="dialog_delete_category_message">La categoría "%1$s" se eliminará. Los productos que la usen quedarán sin categoría.</string>
+
+    <!-- Cerrar sesión -->
+    <string name="dialog_logout_title">¿Cerrar sesión?</string>
+    <string name="dialog_logout_message">Podrás volver a iniciar sesión cuando quieras. Las listas guardadas localmente seguirán disponibles.</string>
+
+    <!-- Reiniciar lista -->
+    <string name="dialog_reset_list_title">¿Reiniciar lista?</string>
+    <string name="dialog_reset_list_message">Todos los productos volverán al estado "Pendiente". No se elimina ningún producto.</string>
+
+    <!-- Descartar cambios -->
+    <string name="dialog_discard_changes_title">¿Descartar cambios?</string>
+    <string name="dialog_discard_changes_message">Los cambios que realizaste no se guardarán.</string>
+
+    <!-- Botones comunes de diálogos -->
+    <string name="dialog_btn_confirm">Confirmar</string>
+    <string name="dialog_btn_cancel">Cancelar</string>
+    <string name="dialog_btn_delete">Eliminar</string>
+    <string name="dialog_btn_discard">Descartar</string>
+    <string name="dialog_btn_logout">Cerrar sesión</string>
+    <string name="dialog_btn_reset">Reiniciar</string>
+    <string name="dialog_btn_keep_editing">Seguir editando</string>
+
+    <!-- ================================================================== -->
+    <!-- Snackbars / Feedback -->
+    <!-- ================================================================== -->
+    <string name="snack_product_added">Producto agregado</string>
+    <string name="snack_product_deleted">Producto eliminado</string>
+    <string name="snack_product_duplicated">Producto duplicado</string>
+    <string name="snack_product_moved">Producto movido a "%1$s"</string>
+    <string name="snack_product_marked_purchased">"%1$s" marcado como comprado</string>
+    <string name="snack_product_marked_pending">"%1$s" marcado como pendiente</string>
+    <string name="snack_list_created">Lista creada</string>
+    <string name="snack_list_deleted">Lista eliminada</string>
+    <string name="snack_list_duplicated">Lista duplicada</string>
+    <string name="snack_list_renamed">Lista renombrada</string>
+    <string name="snack_list_reset">Lista reiniciada</string>
+    <string name="snack_category_created">Categoría creada</string>
+    <string name="snack_category_deleted">Categoría eliminada</string>
+    <string name="snack_changes_saved">Cambios guardados</string>
+    <string name="snack_btn_undo">Deshacer</string>
+
+    <!-- ================================================================== -->
+    <!-- Estados de carga -->
+    <!-- ================================================================== -->
+    <string name="loading_generic">Cargando…</string>
+    <string name="loading_saving">Guardando…</string>
+    <string name="loading_syncing">Sincronizando…</string>
+    <string name="loading_deleting">Eliminando…</string>
+
+    <!-- ================================================================== -->
+    <!-- Estados sin conexión -->
+    <!-- ================================================================== -->
+    <string name="offline_banner">Sin conexión · Trabajando sin internet</string>
+    <string name="offline_changes_pending">Tienes cambios pendientes de sincronizar</string>
+
+    <!-- ================================================================== -->
+    <!-- Accesibilidad — content descriptions -->
+    <!-- ================================================================== -->
+    <string name="cd_back">Volver</string>
+    <string name="cd_more_options">Más opciones</string>
+    <string name="cd_close">Cerrar</string>
+    <string name="cd_add">Agregar</string>
+    <string name="cd_edit">Editar</string>
+    <string name="cd_delete">Eliminar</string>
+    <string name="cd_search">Buscar</string>
+    <string name="cd_settings">Configuración</string>
+    <string name="cd_user_avatar">Avatar de usuario</string>
+    <string name="cd_product_image">Imagen del producto</string>
+    <string name="cd_list_color">Color de la lista: %1$s</string>
+    <string name="cd_mark_purchased">Marcar como comprado</string>
+    <string name="cd_mark_pending">Marcar como pendiente</string>
+    <string name="cd_progress_bar">Progreso de la lista: %1$d%%</string>
+    <string name="cd_password_toggle_show">Mostrar contraseña</string>
+    <string name="cd_password_toggle_hide">Ocultar contraseña</string>
+    <string name="cd_nav_home">Inicio</string>
+    <string name="cd_nav_search">Búsqueda</string>
+    <string name="cd_nav_lists">Mis listas</string>
+    <string name="cd_nav_settings">Configuración</string>
+
+    <!-- ================================================================== -->
+    <!-- Unidades de medida (selector en Agregar Producto) -->
+    <!-- ================================================================== -->
+    <string name="unit_unit">Unidad</string>
+    <string name="unit_kg">Kg</string>
+    <string name="unit_g">g</string>
+    <string name="unit_l">L</string>
+    <string name="unit_ml">ml</string>
+    <string name="unit_pack">Paquete</string>
+    <string name="unit_dozen">Docena</string>
+    <string name="unit_box">Caja</string>
+
+    <!-- ================================================================== -->
+    <!-- Categorías del sistema (predefinidas) -->
+    <!-- ================================================================== -->
+    <string name="category_dairy">Lácteos</string>
+    <string name="category_meat">Carnes</string>
+    <string name="category_vegetables">Verduras</string>
+    <string name="category_fruits">Frutas</string>
+    <string name="category_bakery">Panadería</string>
+    <string name="category_cleaning">Limpieza</string>
+    <string name="category_personal_care">Cuidado personal</string>
+    <string name="category_beverages">Bebidas</string>
+    <string name="category_snacks">Snacks</string>
+    <string name="category_frozen">Congelados</string>
+    <string name="category_other">Otros</string>
+
 </resources>
