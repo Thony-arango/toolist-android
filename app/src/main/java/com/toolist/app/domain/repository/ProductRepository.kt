@@ -28,4 +28,7 @@ interface ProductRepository {
 
     /** Pone todos los productos de la lista en PENDING y purchasedCount a 0. */
     suspend fun resetAllProducts(listId: String): Result<Unit>
+
+    /** Recalcula totalEstimated sumando solo productos PENDING y lo persiste en la lista. */
+    suspend fun recalculateTotalEstimated(listId: String): Result<Unit>
 }

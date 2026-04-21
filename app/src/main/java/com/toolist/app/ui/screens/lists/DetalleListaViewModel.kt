@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.toolist.app.domain.model.Product
+import com.toolist.app.domain.model.ProductStatus
 import com.toolist.app.domain.model.ShoppingList
 import com.toolist.app.domain.usecase.list.DeleteListUseCase
 import com.toolist.app.domain.usecase.list.GetListUseCase
@@ -32,6 +33,7 @@ data class DetalleListaUiState(
     val filteredProducts: List<Product> = emptyList(),
     val tabs: List<String> = listOf("Todos"),
     val selectedTab: String = "Todos",
+    val totalEstimated: Double = 0.0,
     val isCompleted: Boolean = false,
     val isDeleted: Boolean = false,
     val error: String? = null,
@@ -78,6 +80,8 @@ class DetalleListaViewModel @Inject constructor(
                     filteredProducts = filtered,
                     tabs = tabs,
                     selectedTab = validTab,
+                    totalEstimated = products.filter { it.status == ProductStatus.PENDING }
+                        .sumOf { it.estimatedPrice },
                     isCompleted = list?.isCompleted ?: false,
                 )
             }

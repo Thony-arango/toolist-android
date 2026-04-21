@@ -161,6 +161,7 @@ fun DetalleListaScreen(
         ) {
             ListHeader(
                 list = uiState.list,
+                totalEstimated = uiState.totalEstimated,
                 listColor = listColor,
                 onNavigateBack = onNavigateBack,
                 onShowOptions = { showListSheet = true },
@@ -185,7 +186,7 @@ fun DetalleListaScreen(
                 else -> ProductsContent(
                     products = uiState.filteredProducts,
                     isCompleted = uiState.isCompleted,
-                    list = uiState.list,
+                    totalEstimated = uiState.totalEstimated,
                     onToggleStatus = onToggleProductStatus,
                     onProductClick = { product ->
                         selectedProduct = product
@@ -303,6 +304,7 @@ fun DetalleListaScreen(
 @Composable
 private fun ListHeader(
     list: ShoppingList?,
+    totalEstimated: Double,
     listColor: Color,
     onNavigateBack: () -> Unit,
     onShowOptions: () -> Unit,
@@ -383,7 +385,7 @@ private fun ListHeader(
                         color = Color.White.copy(alpha = 0.75f),
                     )
                     Text(
-                        text = list.totalEstimated.formatAsCurrency(),
+                        text = totalEstimated.formatAsCurrency(),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                         color = Color.White,
                     )
@@ -429,7 +431,7 @@ private fun CategoryTabsRow(
 private fun ProductsContent(
     products: List<Product>,
     isCompleted: Boolean,
-    list: ShoppingList?,
+    totalEstimated: Double,
     onToggleStatus: (Product) -> Unit,
     onProductClick: (Product) -> Unit,
     onResetList: () -> Unit,
@@ -446,7 +448,7 @@ private fun ProductsContent(
         if (isCompleted) {
             item {
                 CompletedBanner(
-                    totalEstimated = list?.totalEstimated ?: 0.0,
+                    totalEstimated = totalEstimated,
                     onResetList = onResetList,
                 )
             }

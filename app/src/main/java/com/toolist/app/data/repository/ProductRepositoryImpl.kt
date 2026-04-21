@@ -47,17 +47,31 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun recalculateTotalEstimated(listId: String): Result<Unit> = runCatching {
+        val snapshot = productsCollection(listId).get().await()
+        val total = snapshot.documents
+            .filter { doc -> doc.getString("status") == "PENDING" }
+            .sumOf { doc -> doc.getDouble("estimatedPrice") ?: 0.0 }
+        listsCollection().document(listId).update("totalEstimated", total).await()
+    }
+
+    private suspend fun recalculate(listId: String) {
+        recalculateTotalEstimated(listId).getOrThrow()
+    }
+
     override suspend fun addProduct(product: Product): Result<String> = runCatching {
         val dto = ProductDto.fromProduct(product)
         val ref = productsCollection(product.listId).add(dto.toMap()).await()
         listsCollection().document(product.listId)
             .update("totalCount", FieldValue.increment(1L)).await()
+        recalculate(product.listId)
         ref.id
     }
 
     override suspend fun updateProduct(product: Product): Result<Unit> = runCatching {
         val dto = ProductDto.fromProduct(product)
         productsCollection(product.listId).document(product.id).set(dto.toMap()).await()
+        recalculate(product.listId)
     }
 
     override suspend fun deleteProduct(
@@ -71,6 +85,7 @@ class ProductRepositoryImpl @Inject constructor(
         if (wasPurchased) listUpdates["purchasedCount"] = FieldValue.increment(-1L)
         batch.update(listsCollection().document(listId), listUpdates)
         batch.commit().await()
+        recalculate(listId)
     }
 
     override suspend fun toggleProductStatus(product: Product): Result<Unit> = runCatching {
@@ -80,6 +95,7 @@ class ProductRepositoryImpl @Inject constructor(
         batch.update(productsCollection(product.listId).document(product.id), "status", newStatus.name)
         batch.update(listsCollection().document(product.listId), "purchasedCount", FieldValue.increment(delta))
         batch.commit().await()
+        recalculate(product.listId)
     }
 
     override suspend fun moveProduct(product: Product, targetListId: String): Result<Unit> = runCatching {

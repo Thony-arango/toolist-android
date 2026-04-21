@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.toolist.app.domain.model.ShoppingList
+import com.toolist.app.domain.repository.ProductRepository
 import com.toolist.app.domain.usecase.list.CreateListUseCase
 import com.toolist.app.domain.usecase.list.DeleteListUseCase
 import com.toolist.app.domain.usecase.list.GetListsUseCase
@@ -34,8 +35,11 @@ class MisListasViewModel @Inject constructor(
     private val getListsUseCase: GetListsUseCase,
     private val createListUseCase: CreateListUseCase,
     private val deleteListUseCase: DeleteListUseCase,
+    private val productRepository: ProductRepository,
     private val auth: FirebaseAuth,
 ) : ViewModel() {
+
+    private var repairDone = false
 
     private val _uiState = MutableStateFlow(
         MisListasUiState(userName = auth.currentUser?.displayName?.split(" ")?.firstOrNull() ?: ""),
@@ -61,6 +65,13 @@ class MisListasViewModel @Inject constructor(
                             totalProducts = lists.sumOf { list -> list.totalCount },
                             error = null,
                         )
+                    }
+                    if (!repairDone) {
+                        repairDone = true
+                        lists.filter { it.totalEstimated == 0.0 && it.totalCount > 0 }
+                            .forEach { list ->
+                                productRepository.recalculateTotalEstimated(list.id)
+                            }
                     }
                 }
         }
