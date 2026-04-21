@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.toolist.app.ui.screens.auth.ForgotPasswordScreen
 import com.toolist.app.ui.screens.auth.LoginScreen
 import com.toolist.app.ui.screens.auth.RegisterScreen
 import com.toolist.app.ui.screens.auth.WelcomeScreen
@@ -104,7 +105,10 @@ fun AppNavGraph(
             )
         }
         composable(Screen.ForgotPassword.route) {
-            PlaceholderScreen("Recuperar contraseña")
+            ForgotPasswordScreen(
+                onSendClick = {},
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
 
         // ── Listas ────────────────────────────────────────────────────────
