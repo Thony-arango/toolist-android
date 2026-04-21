@@ -18,6 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.toolist.app.ui.screens.auth.AuthViewModel
 import com.toolist.app.ui.screens.auth.ForgotPasswordScreen
+import com.toolist.app.ui.screens.lists.DetalleListaScreen
+import com.toolist.app.ui.screens.lists.DetalleListaViewModel
 import com.toolist.app.ui.screens.lists.MisListasScreen
 import com.toolist.app.ui.screens.lists.MisListasViewModel
 import com.toolist.app.ui.screens.lists.NuevaListaScreen
@@ -228,7 +230,28 @@ fun AppNavGraph(
                 type = NavType.StringType
             }),
         ) {
-            PlaceholderScreen("Detalle de lista")
+            val viewModel: DetalleListaViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(uiState.isDeleted) {
+                if (uiState.isDeleted) navController.popBackStack()
+            }
+
+            DetalleListaScreen(
+                uiState = uiState,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToAddProduct = {
+                    navController.navigate(Screen.AddProduct.createRoute(uiState.list?.id ?: ""))
+                },
+                onToggleProductStatus = { product -> viewModel.toggleProductStatus(product) },
+                onDeleteProduct = { product -> viewModel.deleteProduct(product) },
+                onDuplicateProduct = { product -> viewModel.duplicateProduct(product) },
+                onDeleteList = { viewModel.deleteList() },
+                onDuplicateList = { /* Fase 5 */ },
+                onResetList = { viewModel.resetList() },
+                onTabSelected = { tab -> viewModel.selectTab(tab) },
+                onErrorShown = { viewModel.clearError() },
+            )
         }
 
         // ── Productos ─────────────────────────────────────────────────────
