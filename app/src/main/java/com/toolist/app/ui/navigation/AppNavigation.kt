@@ -20,6 +20,8 @@ import com.toolist.app.ui.screens.auth.AuthViewModel
 import com.toolist.app.ui.screens.auth.ForgotPasswordScreen
 import com.toolist.app.ui.screens.lists.MisListasScreen
 import com.toolist.app.ui.screens.lists.MisListasViewModel
+import com.toolist.app.ui.screens.lists.NuevaListaScreen
+import com.toolist.app.ui.screens.lists.NuevaListaViewModel
 import com.toolist.app.ui.screens.auth.ForgotPasswordUiState
 import com.toolist.app.ui.screens.auth.LoginScreen
 import com.toolist.app.ui.screens.auth.LoginUiState
@@ -205,7 +207,20 @@ fun AppNavGraph(
             )
         }
         composable(Screen.NewList.route) {
-            PlaceholderScreen("Nueva lista")
+            val viewModel: NuevaListaViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(uiState.isSuccess) {
+                if (uiState.isSuccess) navController.popBackStack()
+            }
+
+            NuevaListaScreen(
+                onCreateClick = { name, colorHex, description ->
+                    viewModel.createList(name, colorHex, description)
+                },
+                onCancel = { navController.popBackStack() },
+                uiState = uiState,
+            )
         }
         composable(
             route = Screen.ListDetail.route,
