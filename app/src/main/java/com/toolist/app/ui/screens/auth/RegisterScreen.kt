@@ -88,7 +88,7 @@ data class RegisterUiState(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
-    onRegisterClick: (name: String, email: String, password: String) -> Unit,
+    onRegisterClick: (name: String, email: String, password: String, confirmPassword: String) -> Unit,
     onNavigateToLogin: () -> Unit,
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -288,7 +288,7 @@ fun RegisterScreen(
                 keyboardActions = KeyboardActions(
                     onDone = {
                         focusManager.clearFocus()
-                        if (!uiState.isLoading) onRegisterClick(name, email, password)
+                        if (!uiState.isLoading) onRegisterClick(name, email, password, confirmPassword)
                     },
                 ),
                 singleLine = true,
@@ -311,7 +311,7 @@ fun RegisterScreen(
 
             // ── Botón primario: Crear cuenta ──────────────────────────────
             Button(
-                onClick = { onRegisterClick(name, email, password) },
+                onClick = { onRegisterClick(name, email, password, confirmPassword) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(ButtonHeight),
@@ -376,7 +376,7 @@ fun RegisterScreen(
 private fun RegisterScreenPreview() {
     ToolistTheme {
         RegisterScreen(
-            onRegisterClick = { _, _, _ -> },
+            onRegisterClick = { _, _, _, _ -> },
             onNavigateToLogin = {},
             onNavigateBack = {},
         )
@@ -388,7 +388,7 @@ private fun RegisterScreenPreview() {
 private fun RegisterScreenLoadingPreview() {
     ToolistTheme {
         RegisterScreen(
-            onRegisterClick = { _, _, _ -> },
+            onRegisterClick = { _, _, _, _ -> },
             onNavigateToLogin = {},
             onNavigateBack = {},
             uiState = RegisterUiState(isLoading = true),
@@ -401,7 +401,7 @@ private fun RegisterScreenLoadingPreview() {
 private fun RegisterScreenErrorPreview() {
     ToolistTheme {
         RegisterScreen(
-            onRegisterClick = { _, _, _ -> },
+            onRegisterClick = { _, _, _, _ -> },
             onNavigateToLogin = {},
             onNavigateBack = {},
             uiState = RegisterUiState(

@@ -4,17 +4,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.toolist.app.ui.screens.auth.AuthViewModel
 import com.toolist.app.ui.screens.auth.ForgotPasswordScreen
+import com.toolist.app.ui.screens.auth.ForgotPasswordUiState
 import com.toolist.app.ui.screens.auth.LoginScreen
+import com.toolist.app.ui.screens.auth.LoginUiState
 import com.toolist.app.ui.screens.auth.RegisterScreen
+import com.toolist.app.ui.screens.auth.RegisterUiState
 import com.toolist.app.ui.screens.auth.WelcomeScreen
 
 // ---------------------------------------------------------------------------
@@ -68,6 +76,10 @@ sealed class Screen(val route: String) {
 fun AppNavGraph(
     navController: NavHostController = rememberNavController(),
 ) {
+    // AuthViewModel compartido entre todas las pantallas de auth
+    val authViewModel: AuthViewModel = hiltViewModel()
+    val authState by authViewModel.uiState.collectAsStateWithLifecycle()
+
     NavHost(
         navController = navController,
         startDestination = Screen.Welcome.route,
@@ -76,38 +88,101 @@ fun AppNavGraph(
         // ── Auth ──────────────────────────────────────────────────────────
         composable(Screen.Welcome.route) {
             WelcomeScreen(
-                onNavigateToLogin = { navController.navigate(Screen.Login.route) },
-                onNavigateToRegister = { navController.navigate(Screen.Register.route) },
+                onNavigateToLogin = {
+                    authViewModel.resetState()
+                    navController.navigate(Screen.Login.route)
+                },
+                onNavigateToRegister = {
+                    authViewModel.resetState()
+                    navController.navigate(Screen.Register.route)
+                },
                 onContinueWithoutAccount = { navController.navigate(Screen.MyLists.route) },
             )
         }
+
         composable(Screen.Login.route) {
+            // Navegar a MyLists tras login exitoso
+            LaunchedEffect(authState.isSuccess) {
+                if (authState.isSuccess) {
+                    navController.navigate(Screen.MyLists.route) {
+                        popUpTo(Screen.Welcome.route) { inclusive = true }
+                    }
+                }
+            }
+
             LoginScreen(
-                onLoginClick = { _, _ -> },
+                onLoginClick = { email, password -> authViewModel.login(email, password) },
                 onNavigateToRegister = {
+                    authViewModel.resetState()
                     navController.navigate(Screen.Register.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 },
-                onNavigateToForgotPassword = { navController.navigate(Screen.ForgotPassword.route) },
-                onNavigateBack = { navController.popBackStack() },
+                onNavigateToForgotPassword = {
+                    authViewModel.resetState()
+                    navController.navigate(Screen.ForgotPassword.route)
+                },
+                onNavigateBack = {
+                    authViewModel.resetState()
+                    navController.popBackStack()
+                },
+                uiState = LoginUiState(
+                    isLoading = authState.isLoading,
+                    emailError = authState.emailError,
+                    passwordError = authState.passwordError,
+                    generalError = authState.error,
+                ),
             )
         }
+
         composable(Screen.Register.route) {
+            // Navegar a MyLists tras registro exitoso
+            LaunchedEffect(authState.isSuccess) {
+                if (authState.isSuccess) {
+                    navController.navigate(Screen.MyLists.route) {
+                        popUpTo(Screen.Welcome.route) { inclusive = true }
+                    }
+                }
+            }
+
             RegisterScreen(
-                onRegisterClick = { _, _, _ -> },
+                onRegisterClick = { name, email, password, confirmPassword ->
+                    authViewModel.register(name, email, password, confirmPassword)
+                },
                 onNavigateToLogin = {
+                    authViewModel.resetState()
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.Register.route) { inclusive = true }
                     }
                 },
-                onNavigateBack = { navController.popBackStack() },
+                onNavigateBack = {
+                    authViewModel.resetState()
+                    navController.popBackStack()
+                },
+                uiState = RegisterUiState(
+                    isLoading = authState.isLoading,
+                    nameError = authState.nameError,
+                    emailError = authState.emailError,
+                    passwordError = authState.passwordError,
+                    confirmPasswordError = authState.confirmPasswordError,
+                    generalError = authState.error,
+                ),
             )
         }
+
         composable(Screen.ForgotPassword.route) {
             ForgotPasswordScreen(
-                onSendClick = {},
-                onNavigateBack = { navController.popBackStack() },
+                onSendClick = { email -> authViewModel.sendPasswordReset(email) },
+                onNavigateBack = {
+                    authViewModel.resetState()
+                    navController.popBackStack()
+                },
+                uiState = ForgotPasswordUiState(
+                    isLoading = authState.isLoading,
+                    emailError = authState.emailError,
+                    isSuccess = authState.isSuccess,
+                    generalError = authState.error,
+                ),
             )
         }
 
