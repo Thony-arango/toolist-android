@@ -30,6 +30,8 @@ import com.toolist.app.ui.screens.auth.LoginUiState
 import com.toolist.app.ui.screens.auth.RegisterScreen
 import com.toolist.app.ui.screens.auth.RegisterUiState
 import com.toolist.app.ui.screens.auth.WelcomeScreen
+import com.toolist.app.ui.screens.product.AgregarProductoScreen
+import com.toolist.app.ui.screens.product.AgregarProductoViewModel
 
 // ---------------------------------------------------------------------------
 // Rutas selladas
@@ -261,7 +263,21 @@ fun AppNavGraph(
                 type = NavType.StringType
             }),
         ) {
-            PlaceholderScreen("Agregar producto")
+            val viewModel: AgregarProductoViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(uiState.isSuccess) {
+                if (uiState.isSuccess) navController.popBackStack()
+            }
+
+            AgregarProductoScreen(
+                initialListId = viewModel.listId,
+                uiState = uiState,
+                onAddClick = { name, targetListId, quantity, unit, categoryName, price, status, notes ->
+                    viewModel.addProduct(name, targetListId, quantity, unit, categoryName, price, status, notes)
+                },
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(
             route = Screen.ProductDetail.route,
