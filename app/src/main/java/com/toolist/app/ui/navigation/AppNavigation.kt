@@ -35,6 +35,9 @@ import com.toolist.app.ui.screens.product.AgregarProductoViewModel
 import com.toolist.app.ui.screens.product.DetalleProductoScreen
 import com.toolist.app.ui.screens.product.DetalleProductoViewModel
 import com.toolist.app.ui.screens.product.EditarProductoScreen
+import com.toolist.app.ui.screens.settings.CreditsScreen
+import com.toolist.app.ui.screens.settings.SettingsScreen
+import com.toolist.app.ui.screens.settings.SettingsViewModel
 import com.toolist.app.ui.screens.categories.CategoriesScreen
 import com.toolist.app.ui.screens.categories.CategoriesViewModel
 import com.toolist.app.ui.screens.search.SearchScreen
@@ -210,9 +213,9 @@ fun AppNavGraph(
                 onNavigateToNewList = { navController.navigate(Screen.NewList.route) },
                 onNavigateToListDetail = { listId -> navController.navigate(Screen.ListDetail.createRoute(listId)) },
                 onNavigateToCategories = { navController.navigate(Screen.Categories.route) },
-                onNavigateToSearch = { navController.navigate(Screen.Search.route) },
-                onNavigateToSettings = { navController.navigate(Screen.Settings.route) },
-                onNavigateToCredits = { navController.navigate(Screen.Credits.route) },
+                onNavigateToSearch = { navController.navigate(Screen.Search.route) { launchSingleTop = true } },
+                onNavigateToSettings = { navController.navigate(Screen.Settings.route) { launchSingleTop = true } },
+                onNavigateToCredits = { navController.navigate(Screen.Credits.route) { launchSingleTop = true } },
                 onDeleteList = { listId -> viewModel.deleteList(listId) },
                 onErrorShown = { viewModel.clearError() },
             )
@@ -367,10 +370,51 @@ fun AppNavGraph(
             )
         }
         composable(Screen.Settings.route) {
-            PlaceholderScreen("Configuración")
+            val viewModel: SettingsViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(uiState.isLoggedOut) {
+                if (uiState.isLoggedOut) {
+                    navController.navigate(Screen.Welcome.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+            }
+
+            SettingsScreen(
+                uiState = uiState,
+                onNavigateToHome = {
+                    navController.navigate(Screen.MyLists.route) {
+                        launchSingleTop = true
+                        popUpTo(Screen.MyLists.route) { inclusive = false }
+                    }
+                },
+                onNavigateToSearch = {
+                    navController.navigate(Screen.Search.route) { launchSingleTop = true }
+                },
+                onNavigateToCredits = {
+                    navController.navigate(Screen.Credits.route) { launchSingleTop = true }
+                },
+                onShowLogoutDialog = { viewModel.showLogoutDialog() },
+                onDismissLogoutDialog = { viewModel.dismissLogoutDialog() },
+                onConfirmLogout = { viewModel.logout() },
+            )
         }
         composable(Screen.Credits.route) {
-            PlaceholderScreen("Créditos")
+            CreditsScreen(
+                onNavigateToHome = {
+                    navController.navigate(Screen.MyLists.route) {
+                        launchSingleTop = true
+                        popUpTo(Screen.MyLists.route) { inclusive = false }
+                    }
+                },
+                onNavigateToSearch = {
+                    navController.navigate(Screen.Search.route) { launchSingleTop = true }
+                },
+                onNavigateToSettings = {
+                    navController.navigate(Screen.Settings.route) { launchSingleTop = true }
+                },
+            )
         }
     }
 }

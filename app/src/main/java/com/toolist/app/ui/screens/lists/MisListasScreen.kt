@@ -24,19 +24,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -62,9 +55,10 @@ import androidx.compose.ui.unit.dp
 import com.toolist.app.R
 import com.toolist.app.domain.model.ShoppingList
 import com.toolist.app.ui.components.ListCard
+import com.toolist.app.ui.components.ToolistBottomNavBar
+import com.toolist.app.ui.components.ToolistTab
 import com.toolist.app.ui.components.formatAsCurrency
 import com.toolist.app.ui.theme.AvatarMd
-import com.toolist.app.ui.theme.BottomNavHeight
 import com.toolist.app.ui.theme.ButtonHeight
 import com.toolist.app.ui.theme.ButtonRadius
 import com.toolist.app.ui.theme.IconLg
@@ -217,45 +211,13 @@ private fun MisListasBottomNav(
     onNavigateToSettings: () -> Unit,
     onNavigateToCredits: () -> Unit,
 ) {
-    NavigationBar(
-        modifier = Modifier.height(BottomNavHeight),
-        containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 0.dp,
-    ) {
-        NavigationBarItem(
-            selected = true,
-            onClick = { /* ya estamos aquí */ },
-            icon = { Icon(Icons.Rounded.Home, contentDescription = stringResource(R.string.cd_nav_home)) },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = MaterialTheme.colorScheme.primary,
-                indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-            ),
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = onNavigateToSearch,
-            icon = { Icon(Icons.Rounded.Search, contentDescription = stringResource(R.string.cd_nav_search)) },
-            colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            ),
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = onNavigateToSettings,
-            icon = { Icon(Icons.Rounded.Settings, contentDescription = stringResource(R.string.cd_nav_settings)) },
-            colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            ),
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick = onNavigateToCredits,
-            icon = { Icon(Icons.Rounded.Info, contentDescription = stringResource(R.string.credits_title)) },
-            colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            ),
-        )
-    }
+    ToolistBottomNavBar(
+        activeTab = ToolistTab.HOME,
+        onNavigateToHome = { /* ya estamos aquí */ },
+        onNavigateToSearch = onNavigateToSearch,
+        onNavigateToSettings = onNavigateToSettings,
+        onNavigateToCredits = onNavigateToCredits,
+    )
 }
 
 // ---------------------------------------------------------------------------
