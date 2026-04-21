@@ -35,6 +35,10 @@ import com.toolist.app.ui.screens.product.AgregarProductoViewModel
 import com.toolist.app.ui.screens.product.DetalleProductoScreen
 import com.toolist.app.ui.screens.product.DetalleProductoViewModel
 import com.toolist.app.ui.screens.product.EditarProductoScreen
+import com.toolist.app.ui.screens.categories.CategoriesScreen
+import com.toolist.app.ui.screens.categories.CategoriesViewModel
+import com.toolist.app.ui.screens.search.SearchScreen
+import com.toolist.app.ui.screens.search.SearchViewModel
 
 // ---------------------------------------------------------------------------
 // Rutas selladas
@@ -328,10 +332,39 @@ fun AppNavGraph(
 
         // ── Otras ─────────────────────────────────────────────────────────
         composable(Screen.Categories.route) {
-            PlaceholderScreen("Categorías")
+            val viewModel: CategoriesViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            CategoriesScreen(
+                uiState = uiState,
+                onNavigateBack = { navController.popBackStack() },
+                onShowCreateDialog = { viewModel.showCreateDialog() },
+                onDismissCreateDialog = { viewModel.dismissCreateDialog() },
+                onCreateCategory = { name -> viewModel.createCategory(name) },
+                onRequestDelete = { category -> viewModel.requestDelete(category) },
+                onDismissDeleteDialog = { viewModel.dismissDeleteDialog() },
+                onConfirmDelete = { viewModel.confirmDelete() },
+                onErrorShown = { viewModel.clearError() },
+                onSnackShown = { viewModel.clearSnack() },
+            )
         }
         composable(Screen.Search.route) {
-            PlaceholderScreen("Búsqueda")
+            val viewModel: SearchViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            SearchScreen(
+                uiState = uiState,
+                onNavigateBack = { navController.popBackStack() },
+                onQueryChange = { query -> viewModel.onQueryChange(query) },
+                onSearch = { query -> viewModel.onSearch(query) },
+                onSelectRecentSearch = { query -> viewModel.selectRecentSearch(query) },
+                onRemoveRecentSearch = { query -> viewModel.removeRecentSearch(query) },
+                onClearAllRecent = { viewModel.clearAllRecentSearches() },
+                onSelectCategory = { category -> viewModel.selectCategoryFilter(category) },
+                onProductClick = { listId, productId ->
+                    navController.navigate(Screen.ProductDetail.createRoute(listId, productId))
+                },
+                onToggleProductStatus = { /* Fase 5: via ViewModel */ },
+                onErrorShown = { viewModel.clearError() },
+            )
         }
         composable(Screen.Settings.route) {
             PlaceholderScreen("Configuración")

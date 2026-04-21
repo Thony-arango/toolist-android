@@ -1,7 +1,9 @@
 package com.toolist.app.di
 
+import com.toolist.app.data.repository.CategoryRepositoryImpl
 import com.toolist.app.data.repository.ListRepositoryImpl
 import com.toolist.app.data.repository.ProductRepositoryImpl
+import com.toolist.app.domain.repository.CategoryRepository
 import com.toolist.app.domain.repository.ListRepository
 import com.toolist.app.domain.repository.ProductRepository
 import dagger.Binds
@@ -21,4 +23,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindProductRepository(impl: ProductRepositoryImpl): ProductRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoryRepository(impl: CategoryRepositoryImpl): CategoryRepository
 }
