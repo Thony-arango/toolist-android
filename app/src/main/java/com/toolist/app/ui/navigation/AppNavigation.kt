@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.toolist.app.ui.screens.auth.LoginScreen
 import com.toolist.app.ui.screens.auth.WelcomeScreen
 
 // ---------------------------------------------------------------------------
@@ -79,7 +80,16 @@ fun AppNavGraph(
             )
         }
         composable(Screen.Login.route) {
-            PlaceholderScreen("Iniciar sesión")
+            LoginScreen(
+                onLoginClick = { _, _ -> },
+                onNavigateToRegister = {
+                    navController.navigate(Screen.Register.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                },
+                onNavigateToForgotPassword = { navController.navigate(Screen.ForgotPassword.route) },
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(Screen.Register.route) {
             PlaceholderScreen("Registrarse")
