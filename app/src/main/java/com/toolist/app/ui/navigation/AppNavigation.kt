@@ -32,6 +32,9 @@ import com.toolist.app.ui.screens.auth.RegisterUiState
 import com.toolist.app.ui.screens.auth.WelcomeScreen
 import com.toolist.app.ui.screens.product.AgregarProductoScreen
 import com.toolist.app.ui.screens.product.AgregarProductoViewModel
+import com.toolist.app.ui.screens.product.DetalleProductoScreen
+import com.toolist.app.ui.screens.product.DetalleProductoViewModel
+import com.toolist.app.ui.screens.product.EditarProductoScreen
 
 // ---------------------------------------------------------------------------
 // Rutas selladas
@@ -285,8 +288,20 @@ fun AppNavGraph(
                 navArgument(Screen.ProductDetail.ARG_LIST_ID) { type = NavType.StringType },
                 navArgument(Screen.ProductDetail.ARG_PRODUCT_ID) { type = NavType.StringType },
             ),
-        ) {
-            PlaceholderScreen("Detalle del producto")
+        ) { backStackEntry ->
+            val viewModel: DetalleProductoViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            DetalleProductoScreen(
+                uiState = uiState,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToEdit = {
+                    navController.navigate(
+                        Screen.EditProduct.createRoute(viewModel.listId, viewModel.productId)
+                    )
+                },
+                onToggleStatus = { viewModel.toggleStatus() },
+            )
         }
         composable(
             route = Screen.EditProduct.route,
@@ -295,7 +310,20 @@ fun AppNavGraph(
                 navArgument(Screen.EditProduct.ARG_PRODUCT_ID) { type = NavType.StringType },
             ),
         ) {
-            PlaceholderScreen("Editar producto")
+            val viewModel: AgregarProductoViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(uiState.isSuccess) {
+                if (uiState.isSuccess) navController.popBackStack()
+            }
+
+            EditarProductoScreen(
+                uiState = uiState,
+                onSaveClick = { name, targetListId, quantity, unit, categoryName, price, status, notes ->
+                    viewModel.updateProduct(name, targetListId, quantity, unit, categoryName, price, status, notes)
+                },
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
 
         // ── Otras ─────────────────────────────────────────────────────────
