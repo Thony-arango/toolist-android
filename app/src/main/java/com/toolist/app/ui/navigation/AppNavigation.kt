@@ -18,6 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.toolist.app.ui.screens.auth.AuthViewModel
 import com.toolist.app.ui.screens.auth.ForgotPasswordScreen
+import com.toolist.app.ui.screens.lists.MisListasScreen
+import com.toolist.app.ui.screens.lists.MisListasViewModel
 import com.toolist.app.ui.screens.auth.ForgotPasswordUiState
 import com.toolist.app.ui.screens.auth.LoginScreen
 import com.toolist.app.ui.screens.auth.LoginUiState
@@ -188,7 +190,19 @@ fun AppNavGraph(
 
         // ── Listas ────────────────────────────────────────────────────────
         composable(Screen.MyLists.route) {
-            PlaceholderScreen("Mis listas")
+            val viewModel: MisListasViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            MisListasScreen(
+                uiState = uiState,
+                onNavigateToNewList = { navController.navigate(Screen.NewList.route) },
+                onNavigateToListDetail = { listId -> navController.navigate(Screen.ListDetail.createRoute(listId)) },
+                onNavigateToCategories = { navController.navigate(Screen.Categories.route) },
+                onNavigateToSearch = { navController.navigate(Screen.Search.route) },
+                onNavigateToSettings = { navController.navigate(Screen.Settings.route) },
+                onNavigateToCredits = { navController.navigate(Screen.Credits.route) },
+                onDeleteList = { listId -> viewModel.deleteList(listId) },
+                onErrorShown = { viewModel.clearError() },
+            )
         }
         composable(Screen.NewList.route) {
             PlaceholderScreen("Nueva lista")
