@@ -15,9 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Checklist
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -28,7 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -81,10 +82,19 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Image(
-                painter = painterResource(R.drawable.ic_toolist_logo_full),
+            Icon(
+                imageVector = Icons.Rounded.Checklist,
                 contentDescription = null,
-                modifier = Modifier.width(120.dp),
+                tint = Color.White,
+                modifier = Modifier.size(64.dp),
+            )
+
+            Spacer(modifier = Modifier.height(SpacingXs))
+
+            Text(
+                text = stringResource(R.string.app_name),
+                style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.Bold),
+                color = Color.White,
             )
 
             Spacer(modifier = Modifier.height(SpacingLg))

@@ -27,25 +27,28 @@ android {
     }
 
     val keystorePropertiesFile = rootProject.file("keystore.properties")
-    val keystoreProperties = Properties()
+    val keystoreProps = Properties()
     if (keystorePropertiesFile.exists()) {
-        keystoreProperties.load(keystorePropertiesFile.inputStream())
+        keystoreProps.load(keystorePropertiesFile.inputStream())
     }
 
     signingConfigs {
         create("release") {
-            if (keystorePropertiesFile.exists()) {
-                storeFile = file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["storePassword"] as String
-                keyAlias = keystoreProperties["storeAlias"] as String
-                keyPassword = keystoreProperties["keyPassword"] as String
+            if (keystoreProps.containsKey("storeFile") &&
+                keystoreProps.containsKey("storePassword") &&
+                keystoreProps.containsKey("keyAlias") &&
+                keystoreProps.containsKey("keyPassword")) {
+                storeFile = file(keystoreProps["storeFile"] as String)
+                storePassword = keystoreProps["storePassword"] as String
+                keyAlias = keystoreProps["keyAlias"] as String
+                keyPassword = keystoreProps["keyPassword"] as String
             }
         }
     }
 
     buildTypes {
         release {
-            if (keystorePropertiesFile.exists()) {
+            if (keystoreProps.containsKey("storeFile")) {
                 signingConfig = signingConfigs.getByName("release")
             }
             isMinifyEnabled = true
