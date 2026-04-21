@@ -13,11 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,21 +25,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.toolist.app.R
 import com.toolist.app.domain.model.ShoppingList
 import com.toolist.app.ui.theme.CardElevation
-import com.toolist.app.ui.theme.ColorDotSize
-import com.toolist.app.ui.theme.IconMd
-import com.toolist.app.ui.theme.ListCardHeight
 import com.toolist.app.ui.theme.ProgressBarHeight
 import com.toolist.app.ui.theme.ProgressBarRadius
 import com.toolist.app.ui.theme.RadiusLg
 import com.toolist.app.ui.theme.SpacingMd
 import com.toolist.app.ui.theme.SpacingSm
-import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.SpacingXxs
 import com.toolist.app.ui.theme.ToolistTheme
 import java.text.NumberFormat
@@ -63,7 +56,6 @@ fun ListCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(ListCardHeight)
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(RadiusLg),
         elevation = CardDefaults.cardElevation(defaultElevation = CardElevation),
@@ -79,15 +71,15 @@ fun ListCard(
                 .padding(horizontal = SpacingMd, vertical = SpacingSm),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // ── Color dot ─────────────────────────────────────────────────
+            // ── Punto de color ────────────────────────────────────────────
             Box(
                 modifier = Modifier
-                    .size(ColorDotSize)
+                    .size(12.dp)
                     .clip(CircleShape)
                     .background(listColor),
             )
 
-            // ── Nombre y meta ──────────────────────────────────────────────
+            // ── Nombre, contador y barra de progreso ──────────────────────
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -96,7 +88,7 @@ fun ListCard(
             ) {
                 Text(
                     text = list.name,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                 )
@@ -124,24 +116,12 @@ fun ListCard(
                 }
             }
 
-            // ── Precio y flecha ────────────────────────────────────────────
-            Column(
-                horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = list.totalEstimated.formatAsCurrency(),
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-                Spacer(modifier = Modifier.height(SpacingXxs))
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(IconMd),
-                )
-            }
+            // ── Precio ────────────────────────────────────────────────────
+            Text(
+                text = list.totalEstimated.formatAsCurrency(),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.primary,
+            )
         }
     }
 }

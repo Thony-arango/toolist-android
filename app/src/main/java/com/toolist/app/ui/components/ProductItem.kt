@@ -38,12 +38,13 @@ import com.toolist.app.domain.model.Product
 import com.toolist.app.domain.model.ProductStatus
 import com.toolist.app.ui.theme.CardMinHeight
 import com.toolist.app.ui.theme.IconMd
-import com.toolist.app.ui.theme.IconSm
 import com.toolist.app.ui.theme.RadiusSm
 import com.toolist.app.ui.theme.SpacingMd
 import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.SpacingXxs
 import com.toolist.app.ui.theme.ToolistTheme
+import com.toolist.app.ui.theme.WarningOrange
+import com.toolist.app.ui.theme.WarningOrangeLight
 
 @Composable
 fun ProductItem(
@@ -78,7 +79,7 @@ fun ProductItem(
 
         Spacer(modifier = Modifier.width(SpacingXs))
 
-        // ── Nombre y categoría ────────────────────────────────────────────
+        // ── Nombre, categoría y badge ─────────────────────────────────────
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -95,25 +96,25 @@ fun ProductItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (product.categoryName != null || product.quantity > 0) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(SpacingXxs),
-                ) {
-                    if (product.categoryName != null) {
-                        CategoryBadge(label = product.categoryName)
-                    }
-                    val qtyText = buildString {
-                        append(formatQuantity(product.quantity))
-                        append(" ")
-                        append(product.unit)
-                    }
-                    Text(
-                        text = qtyText,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(SpacingXxs),
+            ) {
+                if (product.categoryName != null) {
+                    CategoryBadge(label = product.categoryName)
                 }
+                val qtyText = buildString {
+                    append(formatQuantity(product.quantity))
+                    append(" ")
+                    append(product.unit)
+                }
+                Text(
+                    text = qtyText,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                // Badge de estado
+                StatusBadge(status = product.status)
             }
         }
 
@@ -127,6 +128,29 @@ fun ProductItem(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = contentAlpha),
             )
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Badge de estado
+// ---------------------------------------------------------------------------
+
+@Composable
+fun StatusBadge(status: ProductStatus, modifier: Modifier = Modifier) {
+    val isComprado = status == ProductStatus.PURCHASED
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(RadiusSm),
+        color = if (isComprado) MaterialTheme.colorScheme.primaryContainer else WarningOrangeLight,
+    ) {
+        Text(
+            text = stringResource(
+                if (isComprado) R.string.add_product_state_purchased else R.string.add_product_state_pending,
+            ),
+            style = MaterialTheme.typography.labelMedium,
+            color = if (isComprado) MaterialTheme.colorScheme.primary else WarningOrange,
+            modifier = Modifier.padding(horizontal = SpacingXs, vertical = SpacingXxs),
+        )
     }
 }
 

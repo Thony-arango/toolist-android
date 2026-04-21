@@ -330,7 +330,7 @@ private fun TotalCard(
             )
             Text(
                 text = totalEstimated.formatAsCurrency(),
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.secondary,
             )
             Text(

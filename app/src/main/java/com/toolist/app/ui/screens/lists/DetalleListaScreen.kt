@@ -109,10 +109,6 @@ fun DetalleListaScreen(
     onErrorShown: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val listColor = remember(uiState.list?.colorHex) {
-        runCatching { Color(android.graphics.Color.parseColor(uiState.list?.colorHex ?: "#16A34A")) }
-            .getOrDefault(Color(0xFF16A34A))
-    }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Bottom sheet state
@@ -162,7 +158,6 @@ fun DetalleListaScreen(
             // ── Header verde ──────────────────────────────────────────────
             ListHeader(
                 list = uiState.list,
-                listColor = listColor,
                 onNavigateBack = onNavigateBack,
                 onShowOptions = { showListSheet = true },
             )
@@ -312,14 +307,13 @@ fun DetalleListaScreen(
 @Composable
 private fun ListHeader(
     list: ShoppingList?,
-    listColor: Color,
     onNavigateBack: () -> Unit,
     onShowOptions: () -> Unit,
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(listColor),
+            .background(MaterialTheme.colorScheme.secondary),
     ) {
         Column(
             modifier = Modifier
@@ -380,7 +374,7 @@ private fun ListHeader(
                         .height(ProgressBarHeight)
                         .clip(RoundedCornerShape(ProgressBarRadius)),
                     color = Color.White,
-                    trackColor = Color.White.copy(alpha = 0.30f),
+                    trackColor = MaterialTheme.colorScheme.primaryContainer,
                 )
                 Spacer(modifier = Modifier.height(SpacingMd))
 
