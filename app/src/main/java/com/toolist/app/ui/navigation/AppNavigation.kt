@@ -1,13 +1,20 @@
 package com.toolist.app.ui.navigation
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import com.toolist.app.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -48,6 +55,9 @@ import com.toolist.app.ui.screens.search.SearchViewModel
 // ---------------------------------------------------------------------------
 
 sealed class Screen(val route: String) {
+
+    // Splash
+    object Splash : Screen("splash")
 
     // Auth
     object Welcome : Screen("welcome")
@@ -93,6 +103,7 @@ sealed class Screen(val route: String) {
 @Composable
 fun AppNavGraph(
     navController: NavHostController = rememberNavController(),
+    isSessionActive: Boolean = false,
 ) {
     // AuthViewModel compartido entre todas las pantallas de auth
     val authViewModel: AuthViewModel = hiltViewModel()
@@ -100,8 +111,19 @@ fun AppNavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Welcome.route,
+        startDestination = Screen.Splash.route,
     ) {
+
+        // ── Splash ────────────────────────────────────────────────────────
+        composable(Screen.Splash.route) {
+            LaunchedEffect(Unit) {
+                val destination = if (isSessionActive) Screen.MyLists.route else Screen.Welcome.route
+                navController.navigate(destination) {
+                    popUpTo(Screen.Splash.route) { inclusive = true }
+                }
+            }
+            SplashContent()
+        }
 
         // ── Auth ──────────────────────────────────────────────────────────
         composable(Screen.Welcome.route) {
@@ -340,6 +362,15 @@ fun AppNavGraph(
             CategoriesScreen(
                 uiState = uiState,
                 onNavigateBack = { navController.popBackStack() },
+                onNavigateToSearch = {
+                    navController.navigate(Screen.Search.route) { launchSingleTop = true }
+                },
+                onNavigateToSettings = {
+                    navController.navigate(Screen.Settings.route) { launchSingleTop = true }
+                },
+                onNavigateToCredits = {
+                    navController.navigate(Screen.Credits.route) { launchSingleTop = true }
+                },
                 onShowCreateDialog = { viewModel.showCreateDialog() },
                 onDismissCreateDialog = { viewModel.dismissCreateDialog() },
                 onCreateCategory = { name -> viewModel.createCategory(name) },
@@ -356,6 +387,18 @@ fun AppNavGraph(
             SearchScreen(
                 uiState = uiState,
                 onNavigateBack = { navController.popBackStack() },
+                onNavigateToHome = {
+                    navController.navigate(Screen.MyLists.route) {
+                        launchSingleTop = true
+                        popUpTo(Screen.MyLists.route) { inclusive = false }
+                    }
+                },
+                onNavigateToSettings = {
+                    navController.navigate(Screen.Settings.route) { launchSingleTop = true }
+                },
+                onNavigateToCredits = {
+                    navController.navigate(Screen.Credits.route) { launchSingleTop = true }
+                },
                 onQueryChange = { query -> viewModel.onQueryChange(query) },
                 onSearch = { query -> viewModel.onSearch(query) },
                 onSelectRecentSearch = { query -> viewModel.selectRecentSearch(query) },
@@ -420,15 +463,21 @@ fun AppNavGraph(
 }
 
 // ---------------------------------------------------------------------------
-// Placeholder — se reemplaza pantalla a pantalla en Fases 2–5
+// Splash
 // ---------------------------------------------------------------------------
 
 @Composable
-private fun PlaceholderScreen(name: String) {
+private fun SplashContent() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primary),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = name)
+        Image(
+            painter = painterResource(R.drawable.ic_toolist_logo),
+            contentDescription = null,
+            modifier = Modifier.width(120.dp),
+        )
     }
 }

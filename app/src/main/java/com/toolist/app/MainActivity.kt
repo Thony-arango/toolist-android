@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ToolistTheme {
-                AppNavGraph()
+                AppNavGraph(isSessionActive = firebaseAuth.currentUser != null)
             }
         }
     }

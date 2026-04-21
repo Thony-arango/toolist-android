@@ -15,20 +15,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -36,15 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.toolist.app.R
 import com.toolist.app.ui.theme.ButtonHeight
 import com.toolist.app.ui.theme.ButtonRadius
 import com.toolist.app.ui.theme.IconSm
-import com.toolist.app.ui.theme.IconXl
-import com.toolist.app.ui.theme.RadiusMd
 import com.toolist.app.ui.theme.SpacingLg
 import com.toolist.app.ui.theme.SpacingMd
-import com.toolist.app.ui.theme.SpacingSm
 import com.toolist.app.ui.theme.SpacingXl
 import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.SpacingXxs
@@ -88,20 +86,11 @@ fun WelcomeScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             // ── Logo ──────────────────────────────────────────────────────
-            Surface(
-                modifier = Modifier.size(IconXl),
-                shape = RoundedCornerShape(RadiusMd),
-                color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.15f),
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.CheckCircle,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier
-                        .padding(SpacingSm)
-                        .fillMaxSize(),
-                )
-            }
+            Image(
+                painter = painterResource(R.drawable.ic_toolist_logo_full),
+                contentDescription = null,
+                modifier = Modifier.width(120.dp),
+            )
 
             Spacer(modifier = Modifier.height(SpacingLg))
 

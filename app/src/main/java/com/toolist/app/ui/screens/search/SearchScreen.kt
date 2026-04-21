@@ -50,6 +50,8 @@ import com.toolist.app.R
 import com.toolist.app.domain.model.Product
 import com.toolist.app.domain.model.ProductStatus
 import com.toolist.app.ui.components.ProductItem
+import com.toolist.app.ui.components.ToolistBottomNavBar
+import com.toolist.app.ui.components.ToolistTab
 import com.toolist.app.ui.theme.IconLg
 import com.toolist.app.ui.theme.IconMd
 import com.toolist.app.ui.theme.SpacingLg
@@ -69,6 +71,9 @@ import com.toolist.app.ui.theme.ToolistTheme
 fun SearchScreen(
     uiState: SearchUiState,
     onNavigateBack: () -> Unit,
+    onNavigateToHome: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {},
+    onNavigateToCredits: () -> Unit = {},
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit,
     onSelectRecentSearch: (String) -> Unit,
@@ -113,6 +118,15 @@ fun SearchScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
+            )
+        },
+        bottomBar = {
+            ToolistBottomNavBar(
+                activeTab = ToolistTab.SEARCH,
+                onNavigateToHome = onNavigateToHome,
+                onNavigateToSearch = { /* ya estamos aquí */ },
+                onNavigateToSettings = onNavigateToSettings,
+                onNavigateToCredits = onNavigateToCredits,
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },

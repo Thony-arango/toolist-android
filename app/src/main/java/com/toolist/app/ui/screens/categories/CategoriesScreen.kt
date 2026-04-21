@@ -54,6 +54,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.toolist.app.R
 import com.toolist.app.domain.model.Category
+import com.toolist.app.ui.components.ToolistBottomNavBar
+import com.toolist.app.ui.components.ToolistTab
 import com.toolist.app.ui.theme.IconLg
 import com.toolist.app.ui.theme.IconMd
 import com.toolist.app.ui.theme.RadiusMd
@@ -74,6 +76,9 @@ import com.toolist.app.ui.theme.ToolistTheme
 fun CategoriesScreen(
     uiState: CategoriesUiState,
     onNavigateBack: () -> Unit,
+    onNavigateToSearch: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {},
+    onNavigateToCredits: () -> Unit = {},
     onShowCreateDialog: () -> Unit,
     onDismissCreateDialog: () -> Unit,
     onCreateCategory: (String) -> Unit,
@@ -132,6 +137,15 @@ fun CategoriesScreen(
             ) {
                 Icon(imageVector = Icons.Rounded.Add, contentDescription = stringResource(R.string.cd_add))
             }
+        },
+        bottomBar = {
+            ToolistBottomNavBar(
+                activeTab = ToolistTab.HOME,
+                onNavigateToHome = onNavigateBack,
+                onNavigateToSearch = onNavigateToSearch,
+                onNavigateToSettings = onNavigateToSettings,
+                onNavigateToCredits = onNavigateToCredits,
+            )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
         containerColor = MaterialTheme.colorScheme.background,
