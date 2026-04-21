@@ -72,10 +72,6 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.SpacingXxs
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
-// Pantalla
-// ---------------------------------------------------------------------------
-
 @Composable
 fun MisListasScreen(
     uiState: MisListasUiState,
@@ -143,10 +139,6 @@ fun MisListasScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
-// TopAppBar
-// ---------------------------------------------------------------------------
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MisListasTopBar(userName: String) {
@@ -180,9 +172,7 @@ private fun MisListasTopBar(userName: String) {
     )
 }
 
-// ---------------------------------------------------------------------------
 // Avatar de usuario
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun UserAvatar(initials: String, modifier: Modifier = Modifier) {
@@ -201,9 +191,7 @@ private fun UserAvatar(initials: String, modifier: Modifier = Modifier) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Bottom Navigation
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun MisListasBottomNav(
@@ -220,9 +208,7 @@ private fun MisListasBottomNav(
     )
 }
 
-// ---------------------------------------------------------------------------
 // Contenido: listas
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ListsContent(
@@ -236,7 +222,6 @@ private fun ListsContent(
         modifier = modifier.padding(horizontal = SpacingMd),
         verticalArrangement = Arrangement.spacedBy(SpacingXs),
     ) {
-        // ── Card total ────────────────────────────────────────────────────
         item {
             Spacer(modifier = Modifier.height(SpacingXs))
             TotalCard(
@@ -247,7 +232,6 @@ private fun ListsContent(
             Spacer(modifier = Modifier.height(SpacingLg))
         }
 
-        // ── Encabezado sección ────────────────────────────────────────────
         item {
             Text(
                 text = stringResource(R.string.my_lists_section_active),
@@ -257,7 +241,6 @@ private fun ListsContent(
             Spacer(modifier = Modifier.height(SpacingXs))
         }
 
-        // ── Tarjetas de lista ─────────────────────────────────────────────
         items(uiState.lists, key = { it.id }) { list ->
             ListCard(
                 list = list,
@@ -265,7 +248,6 @@ private fun ListsContent(
             )
         }
 
-        // ── Acciones ──────────────────────────────────────────────────────
         item {
             Spacer(modifier = Modifier.height(SpacingMd))
             Button(
@@ -303,9 +285,7 @@ private fun ListsContent(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Card de total
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun TotalCard(
@@ -342,9 +322,7 @@ private fun TotalCard(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Estado vacío
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun EmptyContent(
@@ -396,9 +374,7 @@ private fun EmptyContent(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Skeleton loader
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SkeletonContent(modifier: Modifier = Modifier) {
@@ -456,9 +432,7 @@ private fun SkeletonContent(modifier: Modifier = Modifier) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Previews
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

@@ -30,7 +30,9 @@ import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.material.icons.rounded.TaskAlt
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -89,9 +91,7 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.SpacingXxs
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -109,6 +109,10 @@ fun DetalleListaScreen(
     onErrorShown: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val listColor = remember(uiState.list?.colorHex) {
+        runCatching { Color(android.graphics.Color.parseColor(uiState.list?.colorHex ?: "#16A34A")) }
+            .getOrDefault(Color(0xFF16A34A))
+    }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Bottom sheet state
@@ -155,14 +159,13 @@ fun DetalleListaScreen(
                 .fillMaxSize()
                 .padding(bottom = innerPadding.calculateBottomPadding()),
         ) {
-            // ── Header verde ──────────────────────────────────────────────
             ListHeader(
                 list = uiState.list,
+                listColor = listColor,
                 onNavigateBack = onNavigateBack,
                 onShowOptions = { showListSheet = true },
             )
 
-            // ── Tabs de categorías ────────────────────────────────────────
             if (uiState.tabs.size > 1) {
                 CategoryTabsRow(
                     tabs = uiState.tabs,
@@ -171,7 +174,6 @@ fun DetalleListaScreen(
                 )
             }
 
-            // ── Contenido ─────────────────────────────────────────────────
             when {
                 uiState.isLoading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     androidx.compose.material3.CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
@@ -195,7 +197,6 @@ fun DetalleListaScreen(
         }
     }
 
-    // ── Bottom sheet: opciones de lista ───────────────────────────────────
     if (showListSheet) {
         ModalBottomSheet(
             onDismissRequest = { showListSheet = false },
@@ -215,7 +216,6 @@ fun DetalleListaScreen(
         }
     }
 
-    // ── Bottom sheet: opciones de producto ────────────────────────────────
     if (showProductSheet && selectedProduct != null) {
         val product = selectedProduct!!
         ModalBottomSheet(
@@ -241,7 +241,6 @@ fun DetalleListaScreen(
         }
     }
 
-    // ── Diálogo: eliminar lista ───────────────────────────────────────────
     if (showDeleteListDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteListDialog = false },
@@ -272,7 +271,6 @@ fun DetalleListaScreen(
         )
     }
 
-    // ── Diálogo: eliminar producto ────────────────────────────────────────
     if (showDeleteProductDialog && selectedProduct != null) {
         val product = selectedProduct!!
         AlertDialog(
@@ -299,21 +297,20 @@ fun DetalleListaScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Header verde
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ListHeader(
     list: ShoppingList?,
+    listColor: Color,
     onNavigateBack: () -> Unit,
     onShowOptions: () -> Unit,
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.secondary),
+            .background(listColor),
     ) {
         Column(
             modifier = Modifier
@@ -396,9 +393,7 @@ private fun ListHeader(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Tabs de categorías
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun CategoryTabsRow(
@@ -428,9 +423,7 @@ private fun CategoryTabsRow(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Contenido: lista de productos
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ProductsContent(
@@ -517,9 +510,7 @@ private fun SectionHeader(title: String, modifier: Modifier = Modifier) {
     )
 }
 
-// ---------------------------------------------------------------------------
 // Banner de lista completada
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun CompletedBanner(
@@ -540,14 +531,14 @@ private fun CompletedBanner(
             Text(
                 text = stringResource(R.string.list_detail_completed_title),
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(SpacingXxs))
             Text(
                 text = stringResource(R.string.list_detail_completed_subtitle),
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
+                color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.75f),
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(SpacingXs))
@@ -557,7 +548,17 @@ private fun CompletedBanner(
                 color = MaterialTheme.colorScheme.secondary,
             )
             Spacer(modifier = Modifier.height(SpacingMd))
-            TextButton(onClick = onResetList) {
+            OutlinedButton(
+                onClick = onResetList,
+                shape = RoundedCornerShape(ButtonRadius),
+                border = androidx.compose.foundation.BorderStroke(
+                    width = 1.5.dp,
+                    color = MaterialTheme.colorScheme.secondary,
+                ),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.secondary,
+                ),
+            ) {
                 Icon(
                     Icons.Rounded.Refresh,
                     contentDescription = null,
@@ -573,9 +574,7 @@ private fun CompletedBanner(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Estado vacío
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun EmptyListContent(onAddProduct: () -> Unit) {
@@ -619,9 +618,7 @@ private fun EmptyListContent(onAddProduct: () -> Unit) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Bottom sheet — opciones de lista
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ListOptionsSheet(
@@ -646,9 +643,7 @@ private fun ListOptionsSheet(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Bottom sheet — opciones de producto
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ProductOptionsSheet(
@@ -682,9 +677,7 @@ private fun ProductOptionsSheet(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Helpers de bottom sheet
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SheetHandle() {
@@ -743,9 +736,7 @@ private fun SheetItem(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

@@ -65,9 +65,7 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,14 +85,12 @@ fun AgregarProductoScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // ── Form state ─────────────────────────────────────────────────────────
     var name by rememberSaveable { mutableStateOf("") }
     var quantity by rememberSaveable { mutableStateOf("1") }
     var estimatedPrice by rememberSaveable { mutableStateOf("") }
     var notes by rememberSaveable { mutableStateOf("") }
     var selectedStatus by rememberSaveable { mutableStateOf(ProductStatus.PENDING) }
 
-    // ── Dropdown states ────────────────────────────────────────────────────
     var listDropdownExpanded by remember { mutableStateOf(false) }
     var selectedList by rememberSaveable { mutableStateOf<String?>(initialListId) }
 
@@ -181,7 +177,6 @@ fun AgregarProductoScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Nombre del producto ────────────────────────────────────────
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -201,7 +196,6 @@ fun AgregarProductoScreen(
                 shape = RoundedCornerShape(TextFieldRadius),
             )
 
-            // ── Selector de lista destino ──────────────────────────────────
             ExposedDropdownMenuBox(
                 expanded = listDropdownExpanded,
                 onExpandedChange = { listDropdownExpanded = it },
@@ -235,7 +229,6 @@ fun AgregarProductoScreen(
                 }
             }
 
-            // ── Cantidad y Unidad ──────────────────────────────────────────
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(SpacingSm),
@@ -294,7 +287,6 @@ fun AgregarProductoScreen(
                 }
             }
 
-            // ── Selector de categoría ──────────────────────────────────────
             ExposedDropdownMenuBox(
                 expanded = categoryDropdownExpanded,
                 onExpandedChange = { categoryDropdownExpanded = it },
@@ -328,7 +320,6 @@ fun AgregarProductoScreen(
                 }
             }
 
-            // ── Precio estimado ────────────────────────────────────────────
             OutlinedTextField(
                 value = estimatedPrice,
                 onValueChange = { estimatedPrice = it },
@@ -345,7 +336,6 @@ fun AgregarProductoScreen(
                 shape = RoundedCornerShape(TextFieldRadius),
             )
 
-            // ── Estado inicial ─────────────────────────────────────────────
             Column {
                 Text(
                     text = stringResource(R.string.add_product_label_initial_state),
@@ -371,7 +361,6 @@ fun AgregarProductoScreen(
                 }
             }
 
-            // ── Observaciones ──────────────────────────────────────────────
             OutlinedTextField(
                 value = notes,
                 onValueChange = { notes = it },
@@ -391,7 +380,6 @@ fun AgregarProductoScreen(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Botón agregar ──────────────────────────────────────────────
             Button(
                 onClick = {
                     onAddClick(
@@ -434,9 +422,7 @@ fun AgregarProductoScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Previews
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

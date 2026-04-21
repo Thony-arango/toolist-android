@@ -57,9 +57,6 @@ fun WelcomeScreen(
 ) {
     Box(modifier = modifier.fillMaxSize()) {
 
-        // ── Fondo: gradiente verde oscuro ─────────────────────────────────
-        // Placeholder hasta tener la imagen real del mockup.
-        // Green700 (secondary) arriba → Green900 (onSecondaryContainer) abajo.
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -67,13 +64,12 @@ fun WelcomeScreen(
                     brush = Brush.verticalGradient(
                         colors = listOf(
                             MaterialTheme.colorScheme.secondary,
-                            MaterialTheme.colorScheme.onSecondaryContainer,
+                            MaterialTheme.colorScheme.primary,
                         ),
                     ),
                 ),
         )
 
-        // ── Contenido ─────────────────────────────────────────────────────
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -85,7 +81,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // ── Logo ──────────────────────────────────────────────────────
             Image(
                 painter = painterResource(R.drawable.ic_toolist_logo_full),
                 contentDescription = null,
@@ -94,7 +89,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Título ────────────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.welcome_title),
                 style = MaterialTheme.typography.displayLarge,
@@ -104,7 +98,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Subtítulo ─────────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.welcome_subtitle),
                 style = MaterialTheme.typography.bodyLarge,
@@ -115,7 +108,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // ── Botón primario: Continuar sin cuenta ──────────────────────
             Button(
                 onClick = onContinueWithoutAccount,
                 modifier = Modifier
@@ -135,7 +127,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Botón secundario: Iniciar sesión ──────────────────────────
             // primaryContainer = Green100 (verde claro), onPrimaryContainer = Green700
             Button(
                 onClick = onNavigateToLogin,
@@ -156,7 +147,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Link: ¿No tienes cuenta? Regístrate ───────────────────────
             val registerText = buildAnnotatedString {
                 withStyle(
                     SpanStyle(color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.80f)),
@@ -182,7 +172,6 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Nota: la cuenta es opcional ───────────────────────────────
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -62,9 +62,7 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -133,7 +131,6 @@ fun SearchScreen(
         containerColor = MaterialTheme.colorScheme.background,
     ) { innerPadding ->
         if (!uiState.isSearching) {
-            // ── Estado inicial: búsquedas recientes ────────────────────────
             RecentSearchesContent(
                 recentSearches = uiState.recentSearches,
                 onSelectSearch = onSelectRecentSearch,
@@ -145,7 +142,6 @@ fun SearchScreen(
                     .navigationBarsPadding(),
             )
         } else {
-            // ── Estado activo: chips + resultados ──────────────────────────
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -207,9 +203,7 @@ fun SearchScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Campo de búsqueda
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SearchField(
@@ -252,9 +246,7 @@ private fun SearchField(
     )
 }
 
-// ---------------------------------------------------------------------------
 // Fila de chips de categoría
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun CategoryFilterRow(
@@ -282,9 +274,7 @@ private fun CategoryFilterRow(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Ítem de resultado con nombre de lista
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SearchResultItem(
@@ -308,9 +298,7 @@ private fun SearchResultItem(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Contenido: búsquedas recientes
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun RecentSearchesContent(
@@ -396,9 +384,7 @@ private fun RecentSearchesContent(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Estado sin resultados
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun EmptySearchState(
@@ -433,9 +419,7 @@ private fun EmptySearchState(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

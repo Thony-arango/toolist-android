@@ -68,9 +68,7 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Opciones de color: Color Compose + hex string
-// ---------------------------------------------------------------------------
 
 private val colorOptions: List<Pair<Color, String>> = listOf(
     Color(0xFF16A34A) to "#16A34A",
@@ -83,9 +81,7 @@ private val colorOptions: List<Pair<Color, String>> = listOf(
     Color(0xFF6B7280) to "#6B7280",
 )
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -143,7 +139,6 @@ fun NuevaListaScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Campo nombre ──────────────────────────────────────────────
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -163,7 +158,6 @@ fun NuevaListaScreen(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Selector de color ─────────────────────────────────────────
             Text(
                 text = stringResource(R.string.new_list_label_color),
                 style = MaterialTheme.typography.labelLarge,
@@ -188,7 +182,6 @@ fun NuevaListaScreen(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Campo descripción ─────────────────────────────────────────
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
@@ -209,7 +202,6 @@ fun NuevaListaScreen(
             Spacer(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.height(SpacingXl))
 
-            // ── Botón crear ───────────────────────────────────────────────
             Button(
                 onClick = { onCreateClick(name, selectedColorHex, description) },
                 modifier = Modifier
@@ -238,7 +230,6 @@ fun NuevaListaScreen(
 
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Botón cancelar ────────────────────────────────────────────
             TextButton(
                 onClick = onCancel,
                 modifier = Modifier
@@ -258,9 +249,7 @@ fun NuevaListaScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Punto de color seleccionable
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ColorDot(
@@ -291,9 +280,7 @@ private fun ColorDot(
     )
 }
 
-// ---------------------------------------------------------------------------
 // Previews
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

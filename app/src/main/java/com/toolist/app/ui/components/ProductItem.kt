@@ -64,7 +64,6 @@ fun ProductItem(
             .padding(horizontal = SpacingMd, vertical = SpacingXs),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        // ── Toggle status ─────────────────────────────────────────────────
         IconButton(onClick = onToggleStatus, modifier = Modifier.size(IconMd + SpacingXs)) {
             Icon(
                 imageVector = if (isPurchased) Icons.Rounded.CheckCircle else Icons.Rounded.RadioButtonUnchecked,
@@ -79,7 +78,6 @@ fun ProductItem(
 
         Spacer(modifier = Modifier.width(SpacingXs))
 
-        // ── Nombre, categoría y badge ─────────────────────────────────────
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -120,7 +118,6 @@ fun ProductItem(
 
         Spacer(modifier = Modifier.width(SpacingXs))
 
-        // ── Precio ────────────────────────────────────────────────────────
         if (product.estimatedPrice > 0) {
             Text(
                 text = product.estimatedPrice.formatAsCurrency(),
@@ -130,10 +127,6 @@ fun ProductItem(
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// Badge de estado
-// ---------------------------------------------------------------------------
 
 @Composable
 fun StatusBadge(status: ProductStatus, modifier: Modifier = Modifier) {
@@ -154,10 +147,6 @@ fun StatusBadge(status: ProductStatus, modifier: Modifier = Modifier) {
     }
 }
 
-// ---------------------------------------------------------------------------
-// Chip de categoría
-// ---------------------------------------------------------------------------
-
 @Composable
 fun CategoryBadge(label: String, modifier: Modifier = Modifier) {
     Surface(
@@ -176,10 +165,6 @@ fun CategoryBadge(label: String, modifier: Modifier = Modifier) {
 
 private fun formatQuantity(qty: Double): String =
     if (qty == qty.toLong().toDouble()) qty.toLong().toString() else qty.toString()
-
-// ---------------------------------------------------------------------------
-// Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showBackground = true)
 @Composable

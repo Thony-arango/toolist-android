@@ -16,9 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class MisListasUiState(
     val isLoading: Boolean = true,
@@ -29,9 +27,7 @@ data class MisListasUiState(
     val userName: String = "",
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class MisListasViewModel @Inject constructor(

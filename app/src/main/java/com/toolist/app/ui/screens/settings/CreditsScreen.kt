@@ -46,15 +46,11 @@ import com.toolist.app.ui.theme.SpacingXl
 import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Datos del equipo (constantes — no cambian)
-// ---------------------------------------------------------------------------
 
 private data class TeamMember(val name: String, val initials: String)
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,7 +102,6 @@ fun CreditsScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingXl))
 
-            // ── Logo ───────────────────────────────────────────────────────
             Image(
                 painter = painterResource(R.drawable.ic_toolist_logo),
                 contentDescription = null,
@@ -115,7 +110,6 @@ fun CreditsScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Nombre de la app ───────────────────────────────────────────
             Text(
                 text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.headlineLarge,
@@ -139,7 +133,6 @@ fun CreditsScreen(
             HorizontalDivider(modifier = Modifier.padding(horizontal = SpacingMd))
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Información del proyecto ───────────────────────────────────
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -170,7 +163,6 @@ fun CreditsScreen(
             HorizontalDivider(modifier = Modifier.padding(horizontal = SpacingMd))
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Equipo de desarrollo ───────────────────────────────────────
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -191,9 +183,7 @@ fun CreditsScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Encabezado de sección
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SectionHeaderCredits(text: String, modifier: Modifier = Modifier) {
@@ -206,9 +196,7 @@ private fun SectionHeaderCredits(text: String, modifier: Modifier = Modifier) {
     )
 }
 
-// ---------------------------------------------------------------------------
 // Fila de información
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun InfoRow(label: String, value: String, modifier: Modifier = Modifier) {
@@ -230,9 +218,7 @@ private fun InfoRow(label: String, value: String, modifier: Modifier = Modifier)
     }
 }
 
-// ---------------------------------------------------------------------------
 // Fila de integrante del equipo
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun TeamMemberRow(member: TeamMember, modifier: Modifier = Modifier) {
@@ -268,9 +254,7 @@ private fun TeamMemberRow(member: TeamMember, modifier: Modifier = Modifier) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

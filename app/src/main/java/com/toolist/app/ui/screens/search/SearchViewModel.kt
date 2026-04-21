@@ -18,9 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class SearchUiState(
     val query: String = "",
@@ -37,9 +35,7 @@ data class SearchResult(
     val listName: String,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -136,8 +132,6 @@ class SearchViewModel @Inject constructor(
     fun clearError() {
         _uiState.update { it.copy(error = null) }
     }
-
-    // ── Filtrado ───────────────────────────────────────────────────────────
 
     private fun filterResults(
         allResults: List<SearchResult>,

@@ -64,20 +64,12 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
-// UiState local
-// ---------------------------------------------------------------------------
-
 data class LoginUiState(
     val isLoading: Boolean = false,
     val emailError: String? = null,
     val passwordError: String? = null,
     val generalError: String? = null,
 )
-
-// ---------------------------------------------------------------------------
-// Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -124,7 +116,6 @@ fun LoginScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Título ────────────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.login_title),
                 style = MaterialTheme.typography.headlineLarge,
@@ -133,7 +124,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Subtítulo ─────────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.login_subtitle),
                 style = MaterialTheme.typography.bodyLarge,
@@ -142,7 +132,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(SpacingXl))
 
-            // ── Campo email ───────────────────────────────────────────────
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -172,7 +161,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Campo contraseña ──────────────────────────────────────────
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -214,7 +202,6 @@ fun LoginScreen(
                 shape = RoundedCornerShape(TextFieldRadius),
             )
 
-            // ── Link: ¿Olvidaste tu contraseña? ───────────────────────────
             Box(modifier = Modifier.fillMaxWidth()) {
                 TextButton(
                     onClick = onNavigateToForgotPassword,
@@ -228,7 +215,6 @@ fun LoginScreen(
                 }
             }
 
-            // ── Error general ─────────────────────────────────────────────
             if (uiState.generalError != null) {
                 Spacer(modifier = Modifier.height(SpacingXs))
                 Text(
@@ -241,7 +227,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // ── Botón primario: Ingresar ──────────────────────────────────
             Button(
                 onClick = { onLoginClick(email, password) },
                 modifier = Modifier
@@ -270,7 +255,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Link: ¿No tienes cuenta? Regístrate ───────────────────────
             val registerText = buildAnnotatedString {
                 withStyle(SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant)) {
                     append(stringResource(R.string.login_no_account))

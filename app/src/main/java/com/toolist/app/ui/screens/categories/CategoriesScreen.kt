@@ -67,9 +67,7 @@ import com.toolist.app.ui.theme.SpacingXxl
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -173,7 +171,6 @@ fun CategoriesScreen(
                 ),
                 verticalArrangement = Arrangement.spacedBy(SpacingXs),
             ) {
-                // ── Tus categorías ─────────────────────────────────────────
                 item {
                     SectionHeader(text = stringResource(R.string.categories_section_mine))
                 }
@@ -197,7 +194,6 @@ fun CategoriesScreen(
 
                 item { Spacer(modifier = Modifier.height(SpacingMd)) }
 
-                // ── Categorías del sistema ─────────────────────────────────
                 item {
                     SectionHeader(text = stringResource(R.string.categories_section_system))
                 }
@@ -213,7 +209,6 @@ fun CategoriesScreen(
         }
     }
 
-    // ── Diálogo crear categoría ────────────────────────────────────────────
     if (uiState.showCreateDialog) {
         CreateCategoryDialog(
             onDismiss = onDismissCreateDialog,
@@ -221,7 +216,6 @@ fun CategoriesScreen(
         )
     }
 
-    // ── Diálogo confirmar eliminación ──────────────────────────────────────
     uiState.pendingDeleteCategory?.let { category ->
         AlertDialog(
             onDismissRequest = onDismissDeleteDialog,
@@ -251,9 +245,7 @@ fun CategoriesScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Encabezado de sección
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SectionHeader(text: String, modifier: Modifier = Modifier) {
@@ -266,9 +258,7 @@ private fun SectionHeader(text: String, modifier: Modifier = Modifier) {
     )
 }
 
-// ---------------------------------------------------------------------------
 // Ítem de categoría
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun CategoryItem(
@@ -340,9 +330,7 @@ private fun CategoryItem(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Estado vacío de categorías del usuario
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun EmptyUserCategories(
@@ -373,9 +361,7 @@ private fun EmptyUserCategories(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Diálogo crear categoría
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun CreateCategoryDialog(
@@ -417,9 +403,7 @@ private fun CreateCategoryDialog(
     )
 }
 
-// ---------------------------------------------------------------------------
 // Previews
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

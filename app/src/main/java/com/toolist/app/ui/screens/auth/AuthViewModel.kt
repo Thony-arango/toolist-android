@@ -21,9 +21,7 @@ import kotlinx.coroutines.tasks.await
 import java.io.IOException
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // Estado compartido del ViewModel
-// ---------------------------------------------------------------------------
 
 data class AuthUiState(
     val isLoading: Boolean = false,
@@ -35,9 +33,7 @@ data class AuthUiState(
     val confirmPasswordError: String? = null,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
@@ -47,8 +43,6 @@ class AuthViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
-
-    // ── Login ──────────────────────────────────────────────────────────────
 
     fun login(email: String, password: String) {
         val emailErr = validateEmail(email)
@@ -68,8 +62,6 @@ class AuthViewModel @Inject constructor(
             }
         }
     }
-
-    // ── Registro ───────────────────────────────────────────────────────────
 
     fun register(name: String, email: String, password: String, confirmPassword: String) {
         val nameErr = validateName(name)
@@ -105,8 +97,6 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    // ── Recuperar contraseña ───────────────────────────────────────────────
-
     fun sendPasswordReset(email: String) {
         val emailErr = validateEmail(email)
         if (emailErr != null) {
@@ -125,19 +115,13 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    // ── Limpiar error ──────────────────────────────────────────────────────
-
     fun clearError() {
         _uiState.update { it.copy(error = null) }
     }
 
-    // ── Resetear estado (al salir de una pantalla de auth) ─────────────────
-
     fun resetState() {
         _uiState.update { AuthUiState() }
     }
-
-    // ── Validaciones ──────────────────────────────────────────────────────
 
     private fun validateName(name: String): String? {
         val trimmed = name.trim()
@@ -173,8 +157,6 @@ class AuthViewModel @Inject constructor(
             else -> null
         }
     }
-
-    // ── Mapeo de errores de Firebase ──────────────────────────────────────
 
     private fun mapFirebaseError(e: Exception): String = when (e) {
         is FirebaseAuthInvalidCredentialsException ->

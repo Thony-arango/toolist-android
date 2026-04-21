@@ -72,9 +72,7 @@ import com.toolist.app.ui.theme.ToolistTheme
 import com.toolist.app.ui.theme.WarningOrange
 import com.toolist.app.ui.theme.WarningOrangeLight
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -167,9 +165,7 @@ fun DetalleProductoScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Contenido principal
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ProductDetailContent(
@@ -182,7 +178,6 @@ private fun ProductDetailContent(
         modifier = modifier
             .verticalScroll(rememberScrollState()),
     ) {
-        // ── Imagen del producto ────────────────────────────────────────────
         ProductImage(
             imageUrl = product.imageUrl,
             productName = product.name,
@@ -198,7 +193,6 @@ private fun ProductDetailContent(
         Column(
             modifier = Modifier.padding(horizontal = SpacingMd),
         ) {
-            // ── Nombre del producto ────────────────────────────────────────
             Text(
                 text = product.name,
                 style = MaterialTheme.typography.headlineLarge,
@@ -208,7 +202,6 @@ private fun ProductDetailContent(
 
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Chips: categoría y estado ──────────────────────────────────
             Row(
                 horizontalArrangement = Arrangement.spacedBy(SpacingSm),
             ) {
@@ -250,7 +243,6 @@ private fun ProductDetailContent(
             HorizontalDivider()
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Sección info ───────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.product_detail_section_info),
                 style = MaterialTheme.typography.labelMedium,
@@ -296,7 +288,6 @@ private fun ProductDetailContent(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Botón marcar estado ────────────────────────────────────────
             Button(
                 onClick = onToggleStatus,
                 modifier = Modifier
@@ -322,9 +313,7 @@ private fun ProductDetailContent(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Imagen del producto
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun ProductImage(
@@ -355,9 +344,7 @@ private fun ProductImage(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Fila de información
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun InfoRow(
@@ -397,9 +384,7 @@ private fun InfoRow(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Helpers de formato
-// ---------------------------------------------------------------------------
 
 private fun formatQuantity(quantity: Double, unit: String): String {
     val qtyStr = if (quantity == quantity.toLong().toDouble()) quantity.toLong().toString() else quantity.toString()
@@ -410,9 +395,7 @@ private fun formatPrice(price: Double): String {
     return "$ ${"%,.0f".format(price)}"
 }
 
-// ---------------------------------------------------------------------------
 // Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

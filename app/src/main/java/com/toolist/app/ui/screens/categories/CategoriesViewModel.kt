@@ -22,9 +22,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // Definición de categorías del sistema (constantes internas)
-// ---------------------------------------------------------------------------
 
 private data class SystemCategoryDef(@StringRes val nameResId: Int, val icon: String)
 
@@ -42,9 +40,7 @@ private val SYSTEM_CATEGORIES = listOf(
     SystemCategoryDef(R.string.category_other,         "📦"),
 )
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class CategoriesUiState(
     val isLoading: Boolean = true,
@@ -56,9 +52,7 @@ data class CategoriesUiState(
     val snackMessage: String? = null,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(
@@ -71,7 +65,6 @@ class CategoriesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(CategoriesUiState())
     val uiState: StateFlow<CategoriesUiState> = _uiState.asStateFlow()
 
-    // ── Categorías del sistema construidas una sola vez ────────────────────
     private val systemCategoryDefs: List<Category> = SYSTEM_CATEGORIES.mapIndexed { index, def ->
         Category(
             id = "sys_$index",
@@ -127,8 +120,6 @@ class CategoriesViewModel @Inject constructor(
             }
         }
 
-    // ── Crear categoría ────────────────────────────────────────────────────
-
     fun showCreateDialog() {
         _uiState.update { it.copy(showCreateDialog = true) }
     }
@@ -151,8 +142,6 @@ class CategoriesViewModel @Inject constructor(
                 .onFailure { e -> _uiState.update { it.copy(error = e.message) } }
         }
     }
-
-    // ── Eliminar categoría ─────────────────────────────────────────────────
 
     fun requestDelete(category: Category) {
         _uiState.update { it.copy(pendingDeleteCategory = category) }

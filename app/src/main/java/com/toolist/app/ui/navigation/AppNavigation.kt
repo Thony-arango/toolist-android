@@ -50,9 +50,7 @@ import com.toolist.app.ui.screens.categories.CategoriesViewModel
 import com.toolist.app.ui.screens.search.SearchScreen
 import com.toolist.app.ui.screens.search.SearchViewModel
 
-// ---------------------------------------------------------------------------
 // Rutas selladas
-// ---------------------------------------------------------------------------
 
 sealed class Screen(val route: String) {
 
@@ -96,9 +94,7 @@ sealed class Screen(val route: String) {
     object Credits : Screen("credits")
 }
 
-// ---------------------------------------------------------------------------
 // NavGraph
-// ---------------------------------------------------------------------------
 
 @Composable
 fun AppNavGraph(
@@ -114,7 +110,6 @@ fun AppNavGraph(
         startDestination = Screen.Splash.route,
     ) {
 
-        // ── Splash ────────────────────────────────────────────────────────
         composable(Screen.Splash.route) {
             LaunchedEffect(Unit) {
                 val destination = if (isSessionActive) Screen.MyLists.route else Screen.Welcome.route
@@ -125,7 +120,6 @@ fun AppNavGraph(
             SplashContent()
         }
 
-        // ── Auth ──────────────────────────────────────────────────────────
         composable(Screen.Welcome.route) {
             WelcomeScreen(
                 onNavigateToLogin = {
@@ -226,7 +220,6 @@ fun AppNavGraph(
             )
         }
 
-        // ── Listas ────────────────────────────────────────────────────────
         composable(Screen.MyLists.route) {
             val viewModel: MisListasViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -288,7 +281,6 @@ fun AppNavGraph(
             )
         }
 
-        // ── Productos ─────────────────────────────────────────────────────
         composable(
             route = Screen.AddProduct.route,
             arguments = listOf(navArgument(Screen.AddProduct.ARG_LIST_ID) {
@@ -355,7 +347,6 @@ fun AppNavGraph(
             )
         }
 
-        // ── Otras ─────────────────────────────────────────────────────────
         composable(Screen.Categories.route) {
             val viewModel: CategoriesViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -462,9 +453,7 @@ fun AppNavGraph(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Splash
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SplashContent() {

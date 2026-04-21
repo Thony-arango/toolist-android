@@ -54,9 +54,7 @@ import com.toolist.app.ui.theme.SpacingXl
 import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,12 +104,10 @@ fun SettingsScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingXl))
 
-            // ── Avatar ─────────────────────────────────────────────────────
             UserAvatar(initials = uiState.userInitials)
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Nombre ─────────────────────────────────────────────────────
             if (uiState.userName.isNotEmpty()) {
                 Text(
                     text = uiState.userName,
@@ -123,7 +119,6 @@ fun SettingsScreen(
                 )
             }
 
-            // ── Correo ─────────────────────────────────────────────────────
             if (uiState.userEmail.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(SpacingXs))
                 Text(
@@ -138,7 +133,6 @@ fun SettingsScreen(
             Spacer(modifier = Modifier.height(SpacingXl))
             HorizontalDivider()
 
-            // ── Sección CUENTA ─────────────────────────────────────────────
             SectionHeader(
                 text = stringResource(R.string.settings_section_account),
                 modifier = Modifier.padding(horizontal = SpacingMd, vertical = SpacingSm),
@@ -160,7 +154,6 @@ fun SettingsScreen(
 
             HorizontalDivider()
 
-            // ── Sección DATOS ──────────────────────────────────────────────
             SectionHeader(
                 text = stringResource(R.string.settings_section_data),
                 modifier = Modifier.padding(horizontal = SpacingMd, vertical = SpacingSm),
@@ -190,7 +183,6 @@ fun SettingsScreen(
         }
     }
 
-    // ── Diálogo cerrar sesión ──────────────────────────────────────────────
     if (uiState.showLogoutDialog) {
         AlertDialog(
             onDismissRequest = onDismissLogoutDialog,
@@ -213,9 +205,7 @@ fun SettingsScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Avatar de usuario
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun UserAvatar(initials: String, modifier: Modifier = Modifier) {
@@ -234,9 +224,7 @@ private fun UserAvatar(initials: String, modifier: Modifier = Modifier) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Encabezado de sección
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SectionHeader(text: String, modifier: Modifier = Modifier) {
@@ -249,9 +237,7 @@ private fun SectionHeader(text: String, modifier: Modifier = Modifier) {
     )
 }
 
-// ---------------------------------------------------------------------------
 // Fila de configuración
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SettingsRow(
@@ -295,9 +281,7 @@ private fun SettingsRow(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Badge de sincronización
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun SyncBadge(isConnected: Boolean) {
@@ -316,9 +300,7 @@ private fun SyncBadge(isConnected: Boolean) {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

@@ -13,9 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class SettingsUiState(
     val userName: String = "",
@@ -26,9 +24,7 @@ data class SettingsUiState(
     val isLoggedOut: Boolean = false,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(

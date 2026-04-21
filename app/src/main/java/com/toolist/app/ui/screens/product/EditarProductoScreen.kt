@@ -66,9 +66,7 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
 // Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,7 +85,6 @@ fun EditarProductoScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // ── Form state ─────────────────────────────────────────────────────────
     var name by rememberSaveable { mutableStateOf("") }
     var quantity by rememberSaveable { mutableStateOf("1") }
     var estimatedPrice by rememberSaveable { mutableStateOf("") }
@@ -95,7 +92,6 @@ fun EditarProductoScreen(
     var selectedStatus by rememberSaveable { mutableStateOf(ProductStatus.PENDING) }
     var prefilled by rememberSaveable { mutableStateOf(false) }
 
-    // ── Dropdown states ────────────────────────────────────────────────────
     var listDropdownExpanded by remember { mutableStateOf(false) }
     var selectedListId by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -131,7 +127,6 @@ fun EditarProductoScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
 
-    // ── Precarga de datos del producto existente ───────────────────────────
     LaunchedEffect(uiState.existingProduct) {
         val product = uiState.existingProduct
         if (product != null && !prefilled) {
@@ -195,7 +190,6 @@ fun EditarProductoScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Nombre del producto ────────────────────────────────────────
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -215,7 +209,6 @@ fun EditarProductoScreen(
                 shape = RoundedCornerShape(TextFieldRadius),
             )
 
-            // ── Selector de lista destino ──────────────────────────────────
             ExposedDropdownMenuBox(
                 expanded = listDropdownExpanded,
                 onExpandedChange = { listDropdownExpanded = it },
@@ -249,7 +242,6 @@ fun EditarProductoScreen(
                 }
             }
 
-            // ── Cantidad y Unidad ──────────────────────────────────────────
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(SpacingSm),
@@ -308,7 +300,6 @@ fun EditarProductoScreen(
                 }
             }
 
-            // ── Selector de categoría ──────────────────────────────────────
             ExposedDropdownMenuBox(
                 expanded = categoryDropdownExpanded,
                 onExpandedChange = { categoryDropdownExpanded = it },
@@ -342,7 +333,6 @@ fun EditarProductoScreen(
                 }
             }
 
-            // ── Precio estimado ────────────────────────────────────────────
             OutlinedTextField(
                 value = estimatedPrice,
                 onValueChange = { estimatedPrice = it },
@@ -359,7 +349,6 @@ fun EditarProductoScreen(
                 shape = RoundedCornerShape(TextFieldRadius),
             )
 
-            // ── Estado ─────────────────────────────────────────────────────
             Column {
                 Text(
                     text = stringResource(R.string.add_product_label_initial_state),
@@ -385,7 +374,6 @@ fun EditarProductoScreen(
                 }
             }
 
-            // ── Observaciones ──────────────────────────────────────────────
             OutlinedTextField(
                 value = notes,
                 onValueChange = { notes = it },
@@ -405,7 +393,6 @@ fun EditarProductoScreen(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Botón guardar ──────────────────────────────────────────────
             Button(
                 onClick = {
                     onSaveClick(
@@ -448,9 +435,7 @@ fun EditarProductoScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
 // Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable

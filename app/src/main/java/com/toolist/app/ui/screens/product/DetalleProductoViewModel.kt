@@ -18,9 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class DetalleProductoUiState(
     val isLoading: Boolean = true,
@@ -29,9 +27,7 @@ data class DetalleProductoUiState(
     val error: String? = null,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class DetalleProductoViewModel @Inject constructor(

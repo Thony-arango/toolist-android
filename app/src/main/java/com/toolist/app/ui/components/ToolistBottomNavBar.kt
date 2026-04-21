@@ -18,15 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.toolist.app.R
 import com.toolist.app.ui.theme.BottomNavHeight
 
-// ---------------------------------------------------------------------------
-// Tab activo
-// ---------------------------------------------------------------------------
-
 enum class ToolistTab { HOME, SEARCH, SETTINGS, CREDITS }
-
-// ---------------------------------------------------------------------------
-// BottomNavBar compartido
-// ---------------------------------------------------------------------------
 
 @Composable
 fun ToolistBottomNavBar(

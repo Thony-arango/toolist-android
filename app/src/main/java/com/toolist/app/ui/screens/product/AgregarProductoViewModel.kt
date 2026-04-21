@@ -23,9 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class AgregarProductoUiState(
     val isLoading: Boolean = false,
@@ -36,9 +34,7 @@ data class AgregarProductoUiState(
     val isSuccess: Boolean = false,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class AgregarProductoViewModel @Inject constructor(

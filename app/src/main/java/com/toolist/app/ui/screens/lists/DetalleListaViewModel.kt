@@ -23,9 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class DetalleListaUiState(
     val isLoading: Boolean = true,
@@ -39,9 +37,7 @@ data class DetalleListaUiState(
     val error: String? = null,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class DetalleListaViewModel @Inject constructor(
@@ -150,8 +146,6 @@ class DetalleListaViewModel @Inject constructor(
     fun clearError() {
         _uiState.update { it.copy(error = null) }
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────
 
     private fun buildTabs(products: List<Product>): List<String> {
         val categories = products

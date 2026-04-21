@@ -71,7 +71,6 @@ fun ListCard(
                 .padding(horizontal = SpacingMd, vertical = SpacingSm),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // ── Punto de color ────────────────────────────────────────────
             Box(
                 modifier = Modifier
                     .size(12.dp)
@@ -79,7 +78,6 @@ fun ListCard(
                     .background(listColor),
             )
 
-            // ── Nombre, contador y barra de progreso ──────────────────────
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -116,7 +114,6 @@ fun ListCard(
                 }
             }
 
-            // ── Precio ────────────────────────────────────────────────────
             Text(
                 text = list.totalEstimated.formatAsCurrency(),
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
@@ -126,19 +123,11 @@ fun ListCard(
     }
 }
 
-// ---------------------------------------------------------------------------
-// Formato de precio (peso colombiano: $87.300)
-// ---------------------------------------------------------------------------
-
 fun Double.formatAsCurrency(): String {
     val formatter = NumberFormat.getNumberInstance(Locale.forLanguageTag("es-CO"))
     formatter.maximumFractionDigits = 0
     return "$${formatter.format(this.toLong())}"
 }
-
-// ---------------------------------------------------------------------------
-// Preview
-// ---------------------------------------------------------------------------
 
 @Preview(showBackground = true)
 @Composable

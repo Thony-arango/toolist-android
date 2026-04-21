@@ -15,9 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// ---------------------------------------------------------------------------
 // UiState
-// ---------------------------------------------------------------------------
 
 data class NuevaListaUiState(
     val isLoading: Boolean = false,
@@ -26,9 +24,7 @@ data class NuevaListaUiState(
     val isSuccess: Boolean = false,
 )
 
-// ---------------------------------------------------------------------------
 // ViewModel
-// ---------------------------------------------------------------------------
 
 @HiltViewModel
 class NuevaListaViewModel @Inject constructor(

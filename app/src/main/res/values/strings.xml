@@ -217,6 +217,8 @@
     <string name="search_no_results_title">Sin resultados</string>
     <string name="search_no_results_subtitle">No encontramos productos con ese nombre</string>
     <string name="search_empty_hint">Empieza a escribir para buscar productos en tus listas</string>
+    <string name="search_filter_all">Todas</string>
+    <string name="search_clear_recent">Borrar todo</string>
 
     <!-- ================================================================== -->
     <!-- Configuración -->
@@ -241,6 +243,10 @@
     <string name="credits_label_year">Año</string>
     <string name="credits_year">2026</string>
     <string name="credits_section_team">EQUIPO DE DESARROLLO</string>
+    <string name="credits_subject_name">Desarrollo de Aplicaciones Móviles</string>
+    <string name="credits_member_1">Anthony Arango Betancur</string>
+    <string name="credits_member_2">Camilo Marín Muriel</string>
+    <string name="credits_member_3">Matías Arango Ruiz</string>
 
     <!-- ================================================================== -->
     <!-- Diálogos de confirmación -->

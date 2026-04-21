@@ -68,10 +68,6 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
-// UiState local
-// ---------------------------------------------------------------------------
-
 data class RegisterUiState(
     val isLoading: Boolean = false,
     val nameError: String? = null,
@@ -80,10 +76,6 @@ data class RegisterUiState(
     val confirmPasswordError: String? = null,
     val generalError: String? = null,
 )
-
-// ---------------------------------------------------------------------------
-// Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -134,7 +126,6 @@ fun RegisterScreen(
         ) {
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Título ────────────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.register_title),
                 style = MaterialTheme.typography.headlineLarge,
@@ -143,7 +134,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingXs))
 
-            // ── Subtítulo ─────────────────────────────────────────────────
             Text(
                 text = stringResource(R.string.register_subtitle),
                 style = MaterialTheme.typography.bodyLarge,
@@ -152,7 +142,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingXl))
 
-            // ── Campo nombre completo ─────────────────────────────────────
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -183,7 +172,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Campo correo electrónico ───────────────────────────────────
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -213,7 +201,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Campo contraseña ──────────────────────────────────────────
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -254,7 +241,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Campo confirmar contraseña ────────────────────────────────
             OutlinedTextField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
@@ -296,7 +282,6 @@ fun RegisterScreen(
                 shape = RoundedCornerShape(TextFieldRadius),
             )
 
-            // ── Error general ─────────────────────────────────────────────
             if (uiState.generalError != null) {
                 Spacer(modifier = Modifier.height(SpacingXs))
                 Text(
@@ -309,7 +294,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Botón primario: Crear cuenta ──────────────────────────────
             Button(
                 onClick = { onRegisterClick(name, email, password, confirmPassword) },
                 modifier = Modifier
@@ -338,7 +322,6 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(SpacingMd))
 
-            // ── Link: ¿Ya tienes cuenta? Inicia sesión ────────────────────
             val loginText = buildAnnotatedString {
                 withStyle(SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant)) {
                     append(stringResource(R.string.register_already_have_account))

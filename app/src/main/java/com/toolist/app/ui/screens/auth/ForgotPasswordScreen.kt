@@ -56,20 +56,12 @@ import com.toolist.app.ui.theme.SpacingXs
 import com.toolist.app.ui.theme.TextFieldRadius
 import com.toolist.app.ui.theme.ToolistTheme
 
-// ---------------------------------------------------------------------------
-// UiState local
-// ---------------------------------------------------------------------------
-
 data class ForgotPasswordUiState(
     val isLoading: Boolean = false,
     val emailError: String? = null,
     val isSuccess: Boolean = false,
     val generalError: String? = null,
 )
-
-// ---------------------------------------------------------------------------
-// Pantalla
-// ---------------------------------------------------------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -131,10 +123,6 @@ fun ForgotPasswordScreen(
     }
 }
 
-// ---------------------------------------------------------------------------
-// Contenido del formulario
-// ---------------------------------------------------------------------------
-
 @Composable
 private fun FormContent(
     email: String,
@@ -146,7 +134,6 @@ private fun FormContent(
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.height(SpacingMd))
 
-        // ── Título ────────────────────────────────────────────────────
         Text(
             text = stringResource(R.string.forgot_password_title),
             style = MaterialTheme.typography.headlineLarge,
@@ -155,7 +142,6 @@ private fun FormContent(
 
         Spacer(modifier = Modifier.height(SpacingXs))
 
-        // ── Subtítulo ─────────────────────────────────────────────────
         Text(
             text = stringResource(R.string.forgot_password_subtitle),
             style = MaterialTheme.typography.bodyLarge,
@@ -164,7 +150,6 @@ private fun FormContent(
 
         Spacer(modifier = Modifier.height(SpacingXl))
 
-        // ── Campo correo electrónico ───────────────────────────────────
         OutlinedTextField(
             value = email,
             onValueChange = onEmailChange,
@@ -192,7 +177,6 @@ private fun FormContent(
             shape = RoundedCornerShape(TextFieldRadius),
         )
 
-        // ── Error general ─────────────────────────────────────────────
         if (uiState.generalError != null) {
             Spacer(modifier = Modifier.height(SpacingXs))
             Text(
@@ -205,7 +189,6 @@ private fun FormContent(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // ── Botón primario: Enviar enlace ─────────────────────────────
         Button(
             onClick = onSendClick,
             modifier = Modifier
@@ -236,10 +219,6 @@ private fun FormContent(
     }
 }
 
-// ---------------------------------------------------------------------------
-// Contenido de éxito
-// ---------------------------------------------------------------------------
-
 @Composable
 private fun SuccessContent(
     onNavigateBack: () -> Unit,
@@ -255,7 +234,6 @@ private fun SuccessContent(
                 .padding(horizontal = SpacingMd),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // ── Ícono de confirmación ─────────────────────────────────
             Icon(
                 imageVector = Icons.Rounded.CheckCircle,
                 contentDescription = null,
@@ -265,7 +243,6 @@ private fun SuccessContent(
 
             Spacer(modifier = Modifier.height(SpacingLg))
 
-            // ── Mensaje de éxito ──────────────────────────────────────
             Text(
                 text = stringResource(R.string.forgot_password_success),
                 style = MaterialTheme.typography.bodyLarge,
@@ -275,7 +252,6 @@ private fun SuccessContent(
 
             Spacer(modifier = Modifier.height(SpacingXl))
 
-            // ── Botón: Volver a iniciar sesión ────────────────────────
             Button(
                 onClick = onNavigateBack,
                 modifier = Modifier
@@ -295,10 +271,6 @@ private fun SuccessContent(
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// Previews
-// ---------------------------------------------------------------------------
 
 @Preview(showSystemUi = true)
 @Composable
