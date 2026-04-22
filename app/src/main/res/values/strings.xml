@@ -199,8 +199,9 @@
     <string name="categories_empty_title">Aún no tienes categorías</string>
     <string name="categories_empty_subtitle">Crea categorías personalizadas para organizar mejor tus productos</string>
     <string name="categories_btn_new">+ Crear nueva categoría</string>
-    <string name="categories_label_products_count">%1$d productos</string>
+    <string name="categories_label_product_count_zero">0 productos</string>
     <string name="categories_label_product_count_single">1 producto</string>
+    <string name="categories_label_products_count">%1$d productos</string>
     <string name="new_category_title">Nueva categoría</string>
     <string name="new_category_label_name">Nombre de la categoría</string>
     <string name="new_category_hint_name">Ej. Panadería</string>

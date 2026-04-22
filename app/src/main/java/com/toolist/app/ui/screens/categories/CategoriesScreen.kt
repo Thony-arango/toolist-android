@@ -304,7 +304,7 @@ private fun CategoryItem(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 val countText = when (category.productCount) {
-                    0 -> "0 productos"
+                    0 -> stringResource(R.string.categories_label_product_count_zero)
                     1 -> stringResource(R.string.categories_label_product_count_single)
                     else -> stringResource(R.string.categories_label_products_count, category.productCount)
                 }

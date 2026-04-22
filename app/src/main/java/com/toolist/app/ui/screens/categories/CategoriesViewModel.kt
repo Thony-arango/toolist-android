@@ -81,9 +81,12 @@ class CategoriesViewModel @Inject constructor(
 
     private fun observeCategoriesAndCounts() {
         viewModelScope.launch {
-            // Combina flujo de categorías del usuario con conteo de productos
+            // Combina flujo de categorías del usuario con conteo de productos.
+            // Se usa .catch en cada sub-flujo para que errores puntuales no terminen
+            // la corrutina principal — las categorías siguen actualizándose en tiempo real.
             combine(
-                categoryRepository.observeUserCategories(),
+                categoryRepository.observeUserCategories()
+                    .catch { emit(emptyList()) },
                 allProductsFlow(),
             ) { userCats, allProducts ->
                 val countsByName: Map<String, Int> = allProducts
@@ -106,16 +109,22 @@ class CategoriesViewModel @Inject constructor(
                 )
             }
                 .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
-                .collect { newState -> _uiState.update { newState } }
+                .collect { newState ->
+                    _uiState.update { old ->
+                        newState.copy(snackMessage = old.snackMessage, error = old.error)
+                    }
+                }
         }
     }
 
-    /** Combina todos los productos de todas las listas en un solo Flow. */
+    /** Combina todos los productos de todas las listas en un solo Flow.
+     *  Los errores en sub-flujos se manejan localmente para no terminar el flujo principal. */
     @Suppress("OPT_IN_USAGE")
     private fun allProductsFlow() = getListsUseCase()
+        .catch { emit(emptyList()) }
         .flatMapLatest { lists ->
             if (lists.isEmpty()) flowOf(emptyList())
-            else combine(lists.map { observeProductsUseCase(it.id) }) { arrays ->
+            else combine(lists.map { observeProductsUseCase(it.id).catch { emit(emptyList()) } }) { arrays ->
                 arrays.flatMap { it.toList() }
             }
         }

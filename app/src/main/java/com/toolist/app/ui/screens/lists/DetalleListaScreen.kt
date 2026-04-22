@@ -33,8 +33,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
+
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -131,26 +130,6 @@ fun DetalleListaScreen(
 
     Scaffold(
         modifier = modifier,
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onNavigateToAddProduct,
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 4.dp),
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(horizontal = SpacingMd),
-                ) {
-                    Icon(Icons.Rounded.Add, contentDescription = null, modifier = Modifier.size(IconMd))
-                    Spacer(modifier = Modifier.size(SpacingXs))
-                    Text(
-                        text = stringResource(R.string.list_detail_btn_add_product),
-                        style = MaterialTheme.typography.labelLarge,
-                    )
-                }
-            }
-        },
         snackbarHost = { SnackbarHost(snackbarHostState) },
         containerColor = MaterialTheme.colorScheme.background,
     ) { innerPadding ->
@@ -193,6 +172,7 @@ fun DetalleListaScreen(
                         showProductSheet = true
                     },
                     onResetList = onResetList,
+                    onAddProduct = onNavigateToAddProduct,
                 )
             }
         }
@@ -435,6 +415,7 @@ private fun ProductsContent(
     onToggleStatus: (Product) -> Unit,
     onProductClick: (Product) -> Unit,
     onResetList: () -> Unit,
+    onAddProduct: () -> Unit,
 ) {
     val pending = products.filter { it.status == ProductStatus.PENDING }
     val purchased = products.filter { it.status == ProductStatus.PURCHASED }
@@ -497,8 +478,23 @@ private fun ProductsContent(
             }
         }
 
-        // Espacio para el FAB
-        item { Spacer(modifier = Modifier.height(80.dp)) }
+        // Botón agregar producto
+        item {
+            androidx.compose.material3.TextButton(
+                onClick = onAddProduct,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = SpacingMd, vertical = SpacingSm),
+            ) {
+                Icon(Icons.Rounded.Add, contentDescription = null, modifier = Modifier.size(IconMd))
+                Spacer(modifier = Modifier.size(SpacingXs))
+                Text(
+                    text = stringResource(R.string.list_detail_btn_add_product),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+            Spacer(modifier = Modifier.height(SpacingSm))
+        }
     }
 }
 
